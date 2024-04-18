@@ -1,6 +1,6 @@
 *.pyc
 django/bibliotecaPAenv/
-/env/
+env/
 /venv/
 /static/*
 /media/*
