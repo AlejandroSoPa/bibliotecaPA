@@ -3,13 +3,15 @@ $(document).ready(function () {
         var email = $('#username').val();
         var password = $('#password').val();
         emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-        if (!emailRegex.test(email)) {
-            popUp("Si us plau, introdueixi un correu electrònic vàlid", "warning");
-            return;
-        } else if (password == '' || email ==  '') {
+        if (password == '' || email ==  '') {
             popUp("Si us plau, ompli tots els camps", "error");
             return;
-        } else {
+        }   else if (!emailRegex.test(email)) {
+            popUp("Si us plau, introdueixi un correu electrònic vàlid", "warning");
+            return;
+        }
+
+         else {
             localStorage.setItem('email', email);
             popUp("Benvingut " + email + ", redirigint", "success");
             $('#login-button').attr('disabled', true);
