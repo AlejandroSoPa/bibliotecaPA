@@ -5,10 +5,31 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./output.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body class="bg-celeste">
-            
+        <div id="popUp"
+            class="z-50 fixed inset-y-0 right-0 flex flex-col items-end	 m-6 max-h-90vh gap-6 overflow-y-auto text-right"
+            style="margin-top: 5%;">
+
+        </div>
+        <div>
+            <header class="bg-grey-200 py-4 px-6 mb-4 flex flex-row ">
+                <div id="welcomeMessage" class="text-left flex-1">Benvingut, user!</div>
+                <div id="nameApp" class="text-center flex-1">Biblioteca PA</div>
+                <div id="options" class="text-right flex-1">
+                    <button id="changePassword" class="mx-2">Canvi de Contrasenya</button>
+                    <button id="modifyProfile" class="mx-2">Canviar dades</button>
+                    <button id="signOut" class="mx-2">Tancar sessió</button>
+                </div>
+            </header>
+        </div>
+
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="./scripts/index.js"></script>
 
 </html>

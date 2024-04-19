@@ -1,0 +1,53 @@
+.button-blue {
+    background-color: #ffffff;
+}
+
+.search-button {
+    background-color: #87CEEB;
+}
+
+#popUp::-webkit-scrollbar {
+    display: none;
+    /* Ocultar la barra de desplazamiento en navegadores webkit (Chrome, Safari, etc.) */
+}
+
+#popUp {
+    scrollbar-width: none;
+    /* Ocultar la barra de desplazamiento en navegadores que la admiten */
+    -ms-overflow-style: none;
+    /* Ocultar la barra de desplazamiento en Internet Explorer y Edge */
+}
+
+.remove-item-btn {
+    color: red;
+    padding: 5px;
+}
+
+.alert {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.alert-error {
+    border: 3px solid red;
+}
+
+.alert-success {
+    border: 3px solid green;
+}
+
+.alert-warning {
+    border: 3px solid orangered;
+}
+
+header {
+    background-color: #ffffff;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+#modifyProfile {
+    margin:  0 10px;
+}   

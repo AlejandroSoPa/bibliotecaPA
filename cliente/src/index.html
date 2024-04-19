@@ -1,11 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./output.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
+
     <body>
+        <div id="popUp"
+            class="z-50 fixed inset-y-0 right-0 flex flex-col items-end m-6 max-h-90vh gap-6 overflow-y-auto text-right"
+            style="margin-top: 5%; margin-bottom: 5%;">
+        </div>
+
+
         <div class="grid grid-cols-2 justify-between text-center">
 
             <div class="h-screen bg-celeste">
@@ -55,14 +64,14 @@
                                 id="password" type="password" placeholder="******************">
                         </div><br>
                         <div class="flex items-center justify-between">
-                            <button
+                            <button id="login-button"
                                 class="button-blue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 type="button">
                                 Iniciar sessió
                             </button>
 
                             <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                                href="#">
+                                href="#" style="cursor: pointer;">
                                 Contrasenya oblidada?
                             </a>
                         </div>
@@ -72,5 +81,9 @@
 
         </div>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="./scripts/index.js"></script>
 
 </html>
