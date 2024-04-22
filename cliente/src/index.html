@@ -6,80 +6,93 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./output.css" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
+        <title>Index</title>
     </head>
 
-    <body>
+    <body class="layout">
         <div id="popUp"
             class="z-50 fixed inset-y-0 right-0 flex flex-col items-end m-6 max-h-90vh gap-6 overflow-y-auto text-right"
             style="margin-top: 5%; margin-bottom: 5%;">
         </div>
 
+        <header class="bg-marron py-2 flex justify-center items-center text-textWhite">
+            <div class="text-center flex items-center">
+                <img src="./img/library.png" alt="library" width="30px" class="mr-2">
+                <!-- Add a margin to the right of the image -->
+                <p id="nameApp">Biblioteca PA</p>
+            </div>
+        </header>
 
-        <div class="grid grid-cols-2 justify-between text-center">
-
-            <div class="h-screen bg-celeste">
-                <h1 class="text-5xl mt-decima">Biblioteca PA</h1>
-                <div class="mt-xl mx-decima">
-                    <form class="mx-decima mt-decima">
-                        <label for="default-search"
-                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
+        <main>
+            <div class="grid grid-cols-2 justify-between text-center bg-caoba h-dvh">
+                <div class=" fade-in-text">
+                    <h1 class="text-5xl mt-decima text-textWhite ">Cercar al catàleg</h1>
+                    <div class="mt-xl mx-decima">
+                        <form class="mx-decima mt-decima">
+                            <label for="default-search"
+                                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                </div>
+                                <input type="search" id="default-search"
+                                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Buscar llibres, exemple: El resplandor" />
+                                <button type="submit"
+                                    class="search-button text-white bg-verde absolute end-2.5 bottom-2.5 bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 ">Busca</button>
                             </div>
-                            <input type="search" id="default-search"
-                                class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Buscar llibres, exemple: El resplandor" />
-                            <button type="submit"
-                                class="search-button text-white absolute end-2.5 bottom-2.5 bg-celeste-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Busca</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                </div>
+
+                <div class=" fade-in-text">
+                    <h1 class="text-5xl mt-decima text-textWhite">Inici de sessió</h1>
+
+                    <div class="mt-cuarto mx-decima">
+                        <form class="bg-marron shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 align-middle ">
+                            <div class="mb-4 text-textWhite">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                                    E-mail
+                                </label>
+                                <input
+                                    class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="username" type="email" placeholder="nom@domini.com">
+                            </div><br>
+                            <div class="mb-6 text-textWhite">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                                    Contrasenya
+                                </label>
+                                <input
+                                    class="shadow appearance-none border border-red-500 rounded w-1/2 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="password" type="password" placeholder="******************">
+                            </div><br>
+                            <div class="flex items-center justify-between">
+                                <button id="login-button"
+                                    class="bg-verde text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    type="button">
+                                    Iniciar sessió
+                                </button>
+
+                                <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 text-textWhite"
+                                    href="forgotten-password.html" style="cursor: pointer;">
+                                    Contrasenya oblidada?
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
+        </main>
 
-            <div class="h-screen ">
-
-                <h1 class="text-5xl mt-decima ">Inici de sessió</h1>
-
-                <div class="mt-cuarto mx-decima">
-                    <form class="bg-celeste shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 align-middle">
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                                E-mail
-                            </label>
-                            <input
-                                class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="username" type="email" placeholder="nom@domini.com">
-                        </div><br>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                                Contrasenya
-                            </label>
-                            <input
-                                class="shadow appearance-none border border-red-500 rounded w-1/2 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                                id="password" type="password" placeholder="******************">
-                        </div><br>
-                        <div class="flex items-center justify-between">
-                            <button id="login-button"
-                                class="button-blue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="button">
-                                Iniciar sessió
-                            </button>
-
-                            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                                href="#" style="cursor: pointer;">
-                                Contrasenya oblidada?
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
+        <footer>
+            <p class="text-center bg-marron text-textWhite">
+                &copy <b>Biblioteca PA</b> Creat per Alejandro Soldado Palomino i Pau Maestre Fernández
+            </p>
+        </footer>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">

@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    // Login
     $('#login-button').click(function () {
         var email = $('#username').val();
         var password = $('#password').val();
@@ -26,6 +28,8 @@ $(document).ready(function () {
         console.log(datos);
     });
 
+
+    // Sign Out
     $("#signOut").click(function () {
         localStorage.removeItem('email');
         popUp("Sessió tancada, redirigint", "success");
@@ -37,6 +41,8 @@ $(document).ready(function () {
         }, 2000);
     });
 
+
+    // Notifications
     function popUp(mensaje, tipo) {
         $('#popUp').prepend('<div class="alert alert-' + tipo + ' alert-dismissible fade show" role="alert">' + mensaje + '<button class="remove-item-btn">X</button></div>');
         $('.remove-item-btn').on('click', function () {
