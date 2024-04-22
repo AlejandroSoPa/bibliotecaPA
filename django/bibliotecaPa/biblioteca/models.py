@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 
 class Usuari(AbstractUser):
@@ -7,6 +7,8 @@ class Usuari(AbstractUser):
     centre = models.ForeignKey('Centre', on_delete=models.CASCADE, null=True, blank=True)
     cicle = models.CharField(max_length=100, null=True, blank=True)
     imatge = models.ImageField(upload_to='fotos_perfil', default='default.jpg')
+    groups = models.ManyToManyField(Group, related_name='usuari_group')
+    user_permissions = models.ManyToManyField(Permission, related_name='usuarios_permision')
 
 class Centre(models.Model):
     nom = models.CharField(max_length=128)
@@ -25,23 +27,38 @@ class Llibre(Article):
     colleccio = models.CharField(max_length=100)
     pagines = models.IntegerField()
     signatura = models.CharField(max_length=100)
-
+    
+    def __str__(self):
+        return self.titol
+    
 class CD(Article):
     estil = models.CharField(max_length=100)
     discografia = models.CharField(max_length=100)
     durada = models.DurationField()
 
+    def __str__(self):
+        return self.titol
+
 class DVD(Article):
     director = models.CharField(max_length=100)
     durada = models.DurationField()
 
+    def __str__(self):
+        return self.titol
+    
 class BR(Article):
     durada = models.DurationField()
     estudi = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.titol
+
 class Dispositiu(Article):
     marca = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.titol
 
 class Reserva(models.Model):
     usuari = models.ForeignKey(Usuari, on_delete=models.CASCADE)
