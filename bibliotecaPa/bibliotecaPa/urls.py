@@ -18,11 +18,9 @@ from django.contrib import admin
 from django.urls import include, path
 from biblioteca.views import *
 from biblioteca import api
+from biblioteca import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', login_view, name='index'),  # Esta es la ruta por defecto, si accedes a la raíz del sitio.
-    path('dashboard/', dashboard, name='dashboard'),
-    path('api/hello/', api.hello, name='hello'),
-    path('logout/', logout, name='logout'),
+    path('', include('biblioteca.urls'))
 ]

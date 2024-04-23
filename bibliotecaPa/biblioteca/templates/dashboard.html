@@ -27,7 +27,10 @@
                 <button id="changePassword" class="mx-2"><a href="change-password.html">Canvi de
                         Contrasenya</a></button>
                 <button id="modifyProfile" class="mx-2"><a href="edit-profile.html">Canviar dades</a></button>
-                <button id="signOut" class="mx-2">Tancar sessió</button>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Cerrar sesion</button>
+                </form>
             </div>
         </header>
         <main>

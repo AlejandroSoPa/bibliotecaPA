@@ -1,15 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import *
-from .serializers import LoginSerializer
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 
@@ -19,30 +17,27 @@ def login_view(request):
         username = request.POST.get("username").lower()
         password = request.POST.get("password")
 
-        print (username, password)
         try:
             user = Usuari.objects.get(email=username)
             if user is not None:
                 login(request, user)
-                return redirect("dashboard")
+                print(request.user)
+                return redirect("dashboard")  # Redirige al usuario a 'dashboard'
             else:
                 data['error'] = True
                 data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
-        except:
+        except Usuari.DoesNotExist:
             data['error'] = True
             data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
     return render(request, "index.html", data)
 
-def index(request):
-    return render(request, 'index.html')
-
-@login_required
 def dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect('index')
     return render(request, 'dashboard.html')
 
-
 @login_required
-def logout(request):
+def logout_view(request):
     logout(request)
-    return JsonResponse({'status': 'ok'})
+    return redirect("index")
 

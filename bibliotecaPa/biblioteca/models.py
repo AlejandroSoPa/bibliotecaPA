@@ -3,12 +3,12 @@ from django.db import models
 
 class Usuari(AbstractUser):
     admin = models.BooleanField(default=False)
-    data_naixement = models.DateField()
+    data_naixement = models.DateField(null=True)
     centre = models.ForeignKey('Centre', on_delete=models.CASCADE, null=True, blank=True)
     cicle = models.CharField(max_length=100, null=True, blank=True)
-    imatge = models.ImageField(upload_to='fotos_perfil', default='default.jpg')
-    groups = models.ManyToManyField(Group, related_name='usuari_group')
-    user_permissions = models.ManyToManyField(Permission, related_name='usuarios_permision')
+    imatge = models.ImageField(null=True, upload_to='fotos_perfil', default='default.jpg')
+    groups = models.ManyToManyField(Group, null=True, related_name='usuari_group')
+    user_permissions = models.ManyToManyField(Permission, null=True, related_name='usuarios_permision')
 
 class Centre(models.Model):
     nom = models.CharField(max_length=128)
