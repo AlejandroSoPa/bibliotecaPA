@@ -39,25 +39,6 @@ $(document).ready(function () {
         }
     });*/
 
-    // Función para obtener el valor de una cookie por nombre
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                // Si la cookie comienza con el nombre especificado, obtenemos su valor
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-
-
     // Sign Out
     $("#signOut").click(function () {
         localStorage.removeItem('email');
@@ -69,8 +50,7 @@ $(document).ready(function () {
             window.location.href = 'index.html';
         }, 2000);
     });
-
-
+    
     // Notifications
     function popUp(mensaje, tipo) {
         $('#popUp').prepend('<div class="alert alert-' + tipo + ' alert-dismissible fade show" role="alert">' + mensaje + '<button class="remove-item-btn">X</button></div>');
@@ -78,5 +58,7 @@ $(document).ready(function () {
             $(this).closest('div').remove();
         });
     }
+
+
 
 });

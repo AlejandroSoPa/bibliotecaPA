@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 from biblioteca.views import *
 from biblioteca import api
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,8 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('api/hello/', api.hello, name='hello'),
     path('logout/', logout, name='logout'),
+    path('reset-password/', password_reset_request, name='password_reset_request'),
+    path('reset-password/<uidb64>/<token>/', password_reset_confirm, name='password_reset_confirm'),
+    path('reset-password/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+
 ]
