@@ -24,7 +24,7 @@
                 <p id="nameApp">Biblioteca PA</p>
             </div>
             <div id="options" class="text-right flex-1">
-                <button id="changePassword" class="mx-2"><a href="change-password.html">Canvi de
+                <button id="changePassword" class="mx-2"><a href="{% url 'change_password' %}">Canvi de
                         Contrasenya</a></button>
                 <button id="modifyProfile" class="mx-2"><a href="edit-profile.html">Canviar dades</a></button>
                 <form method="post" action="{% url 'logout' %}">

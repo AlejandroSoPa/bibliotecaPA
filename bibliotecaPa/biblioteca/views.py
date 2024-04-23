@@ -19,6 +19,9 @@ from django.contrib.auth.hashers import check_password
 from django.http import HttpResponse, JsonResponse
 from .utils import generarLog, subir_logs_a_bd 
 
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
 # Create your views here.
 
 def login_view(request):
@@ -71,7 +74,7 @@ def password_reset_request(request):
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-            user = User.objects.filter(email=email).first()
+            user = Usuari.objects.filter(email=email).first()
             if user:
                 uid = urlsafe_base64_encode(str(user.pk).encode())
                 token = default_token_generator.make_token(user)
@@ -91,8 +94,8 @@ def password_reset_request(request):
 def password_reset_confirm(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = Usuari.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, Usuari.DoesNotExist):
         user = None
 
     if user and default_token_generator.check_token(user, token):
@@ -106,3 +109,18 @@ def password_reset_confirm(request, uidb64, token):
     else:
         messages.error(request, 'Invalid password reset link.')
         return redirect('dashboard')    
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Actualiza la sesión del usuario para mantenerla activa
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')  # Redirige para evitar que se vuelva a enviar el formulario
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {'form': form})
