@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./output.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <title>Panel d'usuari</title>
+    </head>
+
+    <body class="bg-caoba ">
+        <div id="popUp"
+            class="z-50 fixed inset-y-0 right-0 flex flex-col items-end	 m-6 max-h-90vh gap-6 overflow-y-auto text-right"
+            style="margin-top: 5%;">
+
+        </div>
+        <header class="bg-grey-200 py-4 px-6 mb-4 flex flex-row bg-marron text-textWhite">
+            <div id="welcomeMessage" class="text-left flex-1">Benvingut, user!</div>
+            <div class="text-center flex items-center">
+                <img src="./img/library.png" alt="library" width="30px" class="mr-2">
+                <!-- Add a margin to the right of the image -->
+                <p id="nameApp">Biblioteca PA</p>
+            </div>
+            <div id="options" class="text-right flex-1">
+                <button id="changePassword" class="mx-2"><a href="change-password.html">Canvi de Contrasenya</a></button>
+                <button id="modifyProfile" class="mx-2"><a href="edit-profile.html">Canviar dades</a></button>
+                <button id="signOut" class="mx-2">Tancar sessió</button>
+            </div>
+        </header>
+        <main>
+
+        </main>
+
+
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="./scripts/index.js"></script>
+
+</html>
