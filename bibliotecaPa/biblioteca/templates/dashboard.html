@@ -17,7 +17,7 @@
 
         </div>
         <header class="bg-grey-200 py-4 px-6 mb-4 flex flex-row bg-marron text-textWhite">
-            <div id="welcomeMessage" class="text-left flex-1">Benvingut, user!</div>
+            <div id="welcomeMessage" class="text-left flex-1">Benvingut, {{ user.username }}!</div>
             <div class="text-center flex items-center">
                 <img src="./img/library.png" alt="library" width="30px" class="mr-2">
                 <!-- Add a margin to the right of the image -->
@@ -37,11 +37,9 @@
 
         </main>
 
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+        <script src="{% static '/scripts/index.js' %}"></script>
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="./scripts/index.js"></script>
-
 </html>

@@ -95,12 +95,16 @@
                 &copy <b>Biblioteca PA</b> Creat per Alejandro Soldado Palomino i Pau Maestre Fernández
             </p>
         </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script src="{% static '/scripts/index.js' %}"></script>
+        {% if error %}
+        <script>
+            createNotification("error", "{{ errorMsg }}");
+        </script>
+        {% endif %}
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="{% static '/scripts/index.js' %}"></script>
-    {% if error %}
-    <p>{{ errorMsg }}</p>
-    {% endif %}
 </html>

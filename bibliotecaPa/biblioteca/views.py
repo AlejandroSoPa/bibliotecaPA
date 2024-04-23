@@ -45,7 +45,7 @@ def dashboard(request):
     print(request.user)
     if not request.user.is_authenticated:
         return redirect('index')
-    return render(request, 'dashboard.html')
+    return render(request, 'dashboard.html', {'user':request.user})
 
 @login_required
 def logout_view(request):
