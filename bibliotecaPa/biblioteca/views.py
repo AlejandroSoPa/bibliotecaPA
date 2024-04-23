@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import *
 from .serializers import LoginSerializer
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -29,7 +30,7 @@ class LoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @login_required
-def logout_view(request):
+def logout(request):
     logout(request)
     return JsonResponse({'status': 'ok'})
 

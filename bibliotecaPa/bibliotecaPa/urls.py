@@ -16,7 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from biblioteca.views import *
+from biblioteca import api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/', index, name='index'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('api/hello/', api.hello, name='hello'),
+    path('api/login/', LoginView.as_view(), name='login'),
+    path('logout/', logout, name='logout'),
 ]
