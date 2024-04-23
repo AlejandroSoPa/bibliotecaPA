@@ -140,5 +140,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pmaestrefernandez.cf@iesesteveterradas.cat'
-EMAIL_HOST_PASSWORD = 'Paumf26!!11  '
+EMAIL_HOST_PASSWORD = 'Paumf26!!11'
 AUTH_USER_MODEL = "biblioteca.Usuari"
