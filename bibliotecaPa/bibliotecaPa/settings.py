@@ -121,6 +121,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/accounts/login/'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -139,3 +141,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pmaestrefernandez.cf@iesesteveterradas.cat'
 EMAIL_HOST_PASSWORD = 'Paumf26!!11  '
+AUTH_USER_MODEL = "biblioteca.Usuari"
