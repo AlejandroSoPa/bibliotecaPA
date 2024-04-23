@@ -18,17 +18,9 @@ from django.contrib import admin
 from django.urls import include, path
 from biblioteca.views import *
 from biblioteca import api
-from django.contrib.auth import views as auth_views
 from biblioteca import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', login_view, name='index'),  # Esta es la ruta por defecto, si accedes a la raíz del sitio.
-    path('dashboard/', dashboard, name='dashboard'),
-    path('api/hello/', api.hello, name='hello'),
-    path('logout/', logout, name='logout'),
-    path('reset-password/', password_reset_request, name='password_reset_request'),
-    path('reset-password/<uidb64>/<token>/', password_reset_confirm, name='password_reset_confirm'),
-    path('reset-password/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('', include('biblioteca.urls'))
 ]
