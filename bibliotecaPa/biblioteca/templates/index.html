@@ -4,8 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="./output.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+        {% load static %}
+        <link href="{% static 'output.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <title>Index</title>
     </head>
 
@@ -53,14 +54,15 @@
                     <h1 class="text-5xl mt-decima text-textWhite">Inici de sessió</h1>
 
                     <div class="mt-cuarto mx-decima">
-                        <form class="bg-marron shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 align-middle ">
+                        <form class="bg-marron shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 align-middle " method="POST">
+                            {% csrf_token %}
                             <div class="mb-4 text-textWhite">
                                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                                     E-mail
                                 </label>
                                 <input
                                     class="shadow appearance-none border rounded w-2/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="username" type="email" placeholder="nom@domini.com">
+                                    id="username" type="email" placeholder="nom@domini.com" name="username">
                             </div><br>
                             <div class="mb-6 text-textWhite">
                                 <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -68,12 +70,12 @@
                                 </label>
                                 <input
                                     class="shadow appearance-none border border-red-500 rounded w-1/2 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="password" type="password" placeholder="******************">
+                                    id="password" type="password" placeholder="******************" name="password">
                             </div><br>
                             <div class="flex items-center justify-between">
                                 <button id="login-button"
                                     class="bg-verde text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                    type="button">
+                                    type="submit">
                                     Iniciar sessió
                                 </button>
 
@@ -97,6 +99,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="./scripts/index.js"></script>
-
+    <script src="{% static '/scripts/index.js' %}"></script>
+    {% if error %}
+    <p>{{ errorMsg }}</p>
+    {% endif %}
 </html>

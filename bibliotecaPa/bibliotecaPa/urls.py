@@ -21,9 +21,8 @@ from biblioteca import api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', index, name='index'),
+    path('', login_view, name='index'),  # Esta es la ruta por defecto, si accedes a la raíz del sitio.
     path('dashboard/', dashboard, name='dashboard'),
     path('api/hello/', api.hello, name='hello'),
-    path('api/login/', LoginView.as_view(), name='login'),
     path('logout/', logout, name='logout'),
 ]

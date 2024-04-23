@@ -1,32 +1,61 @@
 $(document).ready(function () {
 
     // Login
+    /*
     $('#login-button').click(function () {
         var email = $('#username').val();
         var password = $('#password').val();
         emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-        if (password == '' || email ==  '') {
+        if (password == '' || email == '') {
             popUp("Si us plau, ompli tots els camps", "error");
             return;
-        }   else if (!emailRegex.test(email)) {
+        } else if (!emailRegex.test(email)) {
             popUp("Si us plau, introdueixi un correu electrònic vàlid", "warning");
             return;
         }
+        else {
+            // Obtener el token CSRF de la cookie
+            var csrftoken = getCookie('csrftoken');
 
-         else {
-            localStorage.setItem('email', email);
-            popUp("Benvingut " + email + ", redirigint", "success");
-            $('#login-button').attr('disabled', true);
-            setTimeout(function () {
-                window.location.href = 'dashboard.html';
-            }, 2000);
+            $.ajax({
+                url: 'http://localhost:8000/api/login/',
+                type: 'POST',
+                data: {
+                    email: email,
+                    password: password
+                },
+                
+                success: function (response) {
+                    console.log(response);
+                    if (response == 'success') {
+                        popUp("Sessió iniciada, redirigint", "success");
+                        localStorage.setItem('email', email);
+                        console.log("logged");
+                    } else {
+                        popUp("Correu electrònic o contrasenya incorrectes", "error");
+                    }
+                }
+            });
         }
-        var datos = {
-            email: email,
-            password: password
-        };
-        console.log(datos);
-    });
+    });*/
+
+    // Función para obtener el valor de una cookie por nombre
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Si la cookie comienza con el nombre especificado, obtenemos su valor
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
 
 
     // Sign Out

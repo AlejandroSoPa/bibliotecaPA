@@ -5,8 +5,33 @@ from rest_framework import status
 from .models import *
 from .serializers import LoginSerializer
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 # Create your views here.
+
+def login_view(request):
+    data = {}
+    if request.method == "POST":
+        username = request.POST.get("username").lower()
+        password = request.POST.get("password")
+
+        print (username, password)
+        try:
+            user = Usuari.objects.get(email=username)
+            if user is not None:
+                login(request, user)
+                return redirect("dashboard")
+            else:
+                data['error'] = True
+                data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
+        except:
+            data['error'] = True
+            data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
+    return render(request, "index.html", data)
 
 def index(request):
     return render(request, 'index.html')
@@ -15,19 +40,6 @@ def index(request):
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-class LoginView(APIView):
-    serializer_class = LoginSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            user_data = serializer.validated_data
-            return Response({
-                'user_id': user_data['id'],
-                'username': user_data['username'],
-                'email': user_data['email']
-            }, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @login_required
 def logout(request):

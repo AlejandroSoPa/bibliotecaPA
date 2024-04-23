@@ -4,8 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="./output.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+        {% load static %}
+        <link href="{% static 'output.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
         <title>Panel d'usuari</title>
     </head>
 
@@ -23,7 +24,8 @@
                 <p id="nameApp">Biblioteca PA</p>
             </div>
             <div id="options" class="text-right flex-1">
-                <button id="changePassword" class="mx-2"><a href="change-password.html">Canvi de Contrasenya</a></button>
+                <button id="changePassword" class="mx-2"><a href="change-password.html">Canvi de
+                        Contrasenya</a></button>
                 <button id="modifyProfile" class="mx-2"><a href="edit-profile.html">Canviar dades</a></button>
                 <button id="signOut" class="mx-2">Tancar sessió</button>
             </div>
