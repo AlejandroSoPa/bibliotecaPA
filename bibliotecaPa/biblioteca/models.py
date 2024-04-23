@@ -82,5 +82,5 @@ class Log(models.Model):
     esdeveniment = models.CharField(max_length=200)
     nivell = models.CharField(max_length=20)  
     data = models.DateTimeField(auto_now_add=True)
-    usuari = models.ForeignKey(Usuari, on_delete=models.CASCADE)
+    usuari = models.ForeignKey(Usuari, on_delete=models.CASCADE, null=True)
     ruta = models.CharField(max_length=100)

@@ -101,9 +101,11 @@ function createNotification(type, msg) {
                                         <span>${msg}</span>
                                        </div>
             `)
-            break
+            break    
     }
+
     console.log(nodeElement)
+
     Toastify({
         node: nodeElement[0],
         className: `notification ${type}`,
