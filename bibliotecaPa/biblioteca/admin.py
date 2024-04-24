@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Usuari, Centre, Article, Llibre, CD, DVD, BR, Dispositiu, Reserva, Prestec, Solicitud
+from .models import Usuari, Centre, Article, Llibre, CD, DVD, BR, Dispositiu, Reserva, Prestec, Solicitud, Log
+
+class LogAdmin(admin.ModelAdmin):
+    list_display = ["esdeveniment", "nivell", "data", "usuari", "ruta"]
 
 class CentreAdmin(admin.ModelAdmin):
     list_display = ["nom"]
@@ -8,17 +11,25 @@ class LlibreAdmin(admin.ModelAdmin):
     list_display = ["titol", "pagines", "ISBN"]
 
 class CDAdmin(admin.ModelAdmin):
-    list_display = ["nom"]
+    list_display = ["discografia", "durada"]
 
 class DVDAdmin(admin.ModelAdmin):
-    list_display = ["nom"]
+    list_display = ["director", "durada"]
 
 class BRAdmin(admin.ModelAdmin):
-    list_display = ["nom"]
+    list_display = ["estudi"]
     
 class DispositiuAdmin(admin.ModelAdmin):
-    list_display = ["nom"]
+    list_display = ["model","marca"]
 
+class ReservaAdmin(admin.ModelAdmin):
+    list_display = ["usuari", "article", "data_reserva"]
+
+class PrestecAdmin(admin.ModelAdmin):
+    list_display = ["usuari", "article", "data_préstec", "data_retorn"]
+
+class SolicitudAdmin(admin.ModelAdmin):
+    list_display = ["usuari", "article", "data_sol·licitud", "centre_solicitant"]
 
 class LlibreInline(admin.TabularInline):  
     model = Llibre
@@ -55,11 +66,12 @@ class CentreInline(admin.ModelAdmin):
 admin.site.register(Usuari)
 admin.site.register(Centre, CentreAdmin)
 admin.site.register(Article, ArticleAdmin)
-admin.site.register(Llibre)
-admin.site.register(CD)
-admin.site.register(DVD)
-admin.site.register(BR)
-admin.site.register(Dispositiu)
-admin.site.register(Reserva)
-admin.site.register(Prestec)
-admin.site.register(Solicitud)
+admin.site.register(Llibre, LlibreAdmin)
+admin.site.register(CD, CDAdmin)
+admin.site.register(DVD, DVDAdmin)
+admin.site.register(BR, BRAdmin)
+admin.site.register(Dispositiu, DispositiuAdmin)
+admin.site.register(Reserva, ReservaAdmin)
+admin.site.register(Prestec, PrestecAdmin)
+admin.site.register(Solicitud, SolicitudAdmin) 
+admin.site.register(Log, LogAdmin)
