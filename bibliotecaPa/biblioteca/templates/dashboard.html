@@ -26,7 +26,7 @@
             <div id="options" class="text-right flex-1">
                 <button id="changePassword" class="mx-2"><a href="{% url 'change_password' %}">Canvi de
                         Contrasenya</a></button>
-                <button id="modifyProfile" class="mx-2"><a href="edit-profile.html">Canviar dades</a></button>
+                <button id="modifyProfile" class="mx-2"><a href="{% url 'edit_profile' %}">Canviar dades</a></button>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit">Cerrar sesion</button>

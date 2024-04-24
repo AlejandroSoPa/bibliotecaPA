@@ -1,5 +1,14 @@
 from django.contrib import admin
 from .models import Usuari, Centre, Article, Llibre, CD, DVD, BR, Dispositiu, Reserva, Prestec, Solicitud, Log
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
+
+class CentreInline(admin.TabularInline):
+    model = Centre
+    extra = 0
+
+class UsuariAdmin(admin.ModelAdmin):
+    list_display = ["username", "data_naixement", 'centre' , "cicle", "imatge", "admin"]
 
 class LogAdmin(admin.ModelAdmin):
     list_display = ["esdeveniment", "nivell", "data", "usuari", "ruta"]
@@ -63,7 +72,7 @@ class CentreInline(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(Usuari)
+admin.site.register(Usuari, UsuariAdmin)
 admin.site.register(Centre, CentreAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Llibre, LlibreAdmin)

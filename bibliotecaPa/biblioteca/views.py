@@ -22,6 +22,7 @@ from .utils import generarLog, subir_logs_a_bd
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
+from .forms import CustomUserChangeForm
 # Create your views here.
 
 def login_view(request):
@@ -124,3 +125,15 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'change_password.html', {'form': form})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirect to homepage after successful update
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    
+    return render(request, 'edit_profile.html', {'form': form})
