@@ -67,7 +67,7 @@ $(document).ready(function () {
             window.location.href = 'index.html';
         }, 2000);
     });
-    
+
     // Notifications
     function popUp(mensaje, tipo) {
         $('#popUp').prepend('<div class="alert alert-' + tipo + ' alert-dismissible fade show" role="alert">' + mensaje + '<button class="remove-item-btn">X</button></div>');
@@ -100,7 +100,7 @@ function createNotification(type, msg) {
                                         <span>${msg}</span>
                                        </div>
             `)
-            break    
+            break
     }
 
     console.log(nodeElement)
@@ -111,4 +111,28 @@ function createNotification(type, msg) {
         close: true,
         duration: -1,
     }).showToast();
+
+
+    // Search elements on index and search page
+    $("#search-container").on("change", '#searchInfo', function () {
+
+        $('#searchInfo').autocomplete({
+            source: function (request, response) {
+                var query = $('#searchInfo').val();
+                if (query.length > 2) {
+                    $.ajax({
+                        url: 'http://localhost:8000/api/search/',
+                        type: 'GET',
+                        data: {
+                            query: query
+                        },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                }
+            },
+            minLength: 3,
+        });
+    });
 }
