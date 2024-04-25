@@ -79,7 +79,7 @@ def password_reset_request(request):
             if user:
                 uid = urlsafe_base64_encode(str(user.pk).encode())
                 token = default_token_generator.make_token(user)
-                reset_link = request.build_absolute_uri('/reset-password/{}/{}'.format(uid, token))
+                reset_link = ('/reset-password/{}/{}'.format(uid, token))
                 subject = 'Password Reset Request'
                 message = render_to_string('reset_password_email.html', {
                     'reset_link': reset_link,
