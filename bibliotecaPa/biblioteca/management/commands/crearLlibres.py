@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from biblioteca.models import Llibre
 from datetime import datetime
 from faker import Faker
+from faker import Faker
 
 class Command(BaseCommand):
     help = 'Seed the database with dummy data for Llibre model'
@@ -31,6 +32,7 @@ class Command(BaseCommand):
             "Percy Jackson i els Déus de l'Olimp: La maldició del tità": "Rick Riordan",
             "Percy Jackson i els Déus de l'Olimp: La batalla del laberint": "Rick Riordan"
         }
+
 
         editors = {
             "Harry Potter i la pedra filosofal": "Bloomsbury Publishing",
@@ -81,6 +83,7 @@ class Command(BaseCommand):
             "Percy Jackson i els Déus de l'Olimp: La maldició del tità": "Percy Jackson Series",
             "Percy Jackson i els Déus de l'Olimp: La batalla del laberint": "Percy Jackson Series"
         }
+
 
         pagines = {
             "Harry Potter i la pedra filosofal": 256,
@@ -184,11 +187,18 @@ class Command(BaseCommand):
 
         faker = Faker()
 
+        faker = Faker()
+
         for titol, autor in autors.items():
+            data_publicacio = datetime.strptime(fechas_publicacion[titol], "%Y-%m-%d")
             data_publicacio = datetime.strptime(fechas_publicacion[titol], "%Y-%m-%d")
             Llibre.objects.create(
                 titol=titol,
                 autor=autor,
+                editor=editors[titol],
+                pagines=pagines[titol],
+                ISBN=ISBNs[titol],
+                CDU=cdu_values[titol],
                 editor=editors[titol],
                 pagines=pagines[titol],
                 ISBN=ISBNs[titol],
@@ -198,6 +208,34 @@ class Command(BaseCommand):
                 ejemplares=5
             )
 
+
+        for _ in range(90):  # Cambia este número según cuántos registros quieras crear
+            titol_faker = faker.text(max_nb_chars=50)
+            descripcio_faker = faker.paragraph()
+            autor_faker = faker.name()
+            data_publicacio_faker = faker.date_between(start_date='-5y', end_date='today')
+            imatge_faker = 'dummy.jpg'  # Reemplaza esto con el nombre de tus imágenes si tienes alguna
+            CDU_faker = faker.random_int(min=100, max=999)
+            ISBN_faker = faker.isbn13()
+            editor_faker = faker.company()
+            colleccio_faker = faker.word()
+            pagines_faker = faker.random_int(min=50, max=500)
+            signatura_faker = faker.word()
+
+            llibre = Llibre.objects.create(
+                titol=titol_faker,
+                descripcio=descripcio_faker,
+                autor=autor_faker,
+                data_publicacio=data_publicacio_faker,
+                imatge=imatge_faker,
+                CDU=CDU_faker,
+                ISBN=ISBN_faker,
+                editor=editor_faker,
+                colleccio=colleccio_faker,
+                pagines=pagines_faker,
+                signatura=signatura_faker,
+                ejemplares=5
+            )
 
         for _ in range(90):  # Cambia este número según cuántos registros quieras crear
             titol_faker = faker.text(max_nb_chars=50)

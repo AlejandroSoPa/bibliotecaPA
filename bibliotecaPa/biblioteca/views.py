@@ -52,6 +52,9 @@ def login_view(request):
 def index(request):
     return render(request, 'index.html')
 
+def search(request):
+    return render(request, 'search.html')
+
 def dashboard(request):
     print(request.user)
     if not request.user.is_authenticated:

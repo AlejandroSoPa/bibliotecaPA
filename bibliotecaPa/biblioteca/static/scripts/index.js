@@ -2,61 +2,29 @@
 
 $(document).ready(function () {
 
-    // Login
-    /*
-    $('#login-button').click(function () {
-        var email = $('#username').val();
-        var password = $('#password').val();
-        emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-        if (password == '' || email == '') {
-            popUp("Si us plau, ompli tots els camps", "error");
-            return;
-        } else if (!emailRegex.test(email)) {
-            popUp("Si us plau, introdueixi un correu electrònic vàlid", "warning");
-            return;
-        }
-        else {
-            // Obtener el token CSRF de la cookie
-            var csrftoken = getCookie('csrftoken');
-
+    // Search elements on index and search page
+    $("#searchItems").autocomplete({
+        source: function (request, response) {
             $.ajax({
-                url: 'http://localhost:8000/api/login/',
-                type: 'POST',
-                data: {
-                    email: email,
-                    password: password
+                url: '/api/searchItems/' + request.term,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var titles = data.items.map(function (item) {
+                        return item.titol;
+                    }).slice(0, 5); // Limita el array a los primeros 5 elementos
+                    response(titles); // Devuelve solo los primeros 5 títulos como sugerencias de autocompletado
                 },
-                
-                success: function (response) {
-                    console.log(response);
-                    if (response == 'success') {
-                        popUp("Sessió iniciada, redirigint", "success");
-                        localStorage.setItem('email', email);
-                        console.log("logged");
-                    } else {
-                        popUp("Correu electrònic o contrasenya incorrectes", "error");
-                    }
+                error: function (error) {
+                    console.log(error);
                 }
             });
-        }
-    });*/
+        },
+        minLength: 3 // La cantidad mínima de caracteres antes de que se muestren sugerencias
+    });
 
-    // Función para obtener el valor de una cookie por nombre
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                // Si la cookie comienza con el nombre especificado, obtenemos su valor
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
+
+
 
     // Sign Out
     $("#signOut").click(function () {
