@@ -1,5 +1,3 @@
-//Directory: ProyectoBiblioteca/biblioteca/static/scripts/index.js
-
 $(document).ready(function () {
 
     // Login
@@ -72,8 +70,6 @@ $(document).ready(function () {
 
 });
 
-
-
 function createNotification(type, msg) {
     let nodeElement = ""
     let style = ""
@@ -114,7 +110,6 @@ function createNotification(type, msg) {
                 boxShadow: "0 3px 6px -1px rgba(0, 0, 0, .12), 0 10px 36px -4px rgba(77, 96, 232, .3)",
                 background: "-webkit-linear-gradient(315deg, #73a5ff, #5477f5)",
                 background: "linear-gradient(135deg, #ffec80, #ffda4d)",
-                color: "black",
                 position: "fixed",
                 opacity: "1",
                 transition: "all .4s cubic-bezier(.215, .61, .355, 1)",
@@ -151,7 +146,7 @@ function createNotification(type, msg) {
             break;
             
     }
-    
+
     $.ajax({
         url: 'notifications/',
         type: 'POST',
@@ -159,29 +154,23 @@ function createNotification(type, msg) {
             type: type,
             message: msg
         },
-        success: function (response) {
-            console.log(response);
-            Toastify({
-                node: nodeElement[0],
-                className: `notification ${type}`,
-                close: true,
-                duration: -1,
-                style: style
-            }).showToast();
-    
-            setTimeout(function () {
-                window.location.href = '/dashboard';
-            }, 3000);
+        success: function(response) {
+            console.log('Notificación mostrada exitosamente');
         },
-        error: function (xhr, errmsg, err) {
-                Toastify({
-                    node: nodeElement[0],
-                    className: `notification ${type}`,
-                    close: true,
-                    duration: -1,
-                    style: style
-                }).showToast();
-            }
+        error: function(xhr, errmsg, err) {
+            console.log('Error al mostrar la notificación:', errmsg);
         }
-    );
+    });
+
+    if (data.status = "success") {
+        Toastify({
+            node: nodeElement[0],
+            className: `notification ${type}`,
+            close: true,
+            duration: -1,
+            style: style
+        }).showToast();
+    } else {
+        console.log('Error al mostrar la notificación');
+    }
 }

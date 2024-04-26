@@ -14,11 +14,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib import messages
 from django.shortcuts import render, redirect
-
 from django.contrib.auth.hashers import check_password
 from django.http import HttpResponse, JsonResponse
 from .utils import generarLog, subir_logs_a_bd 
-
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
@@ -40,12 +38,12 @@ def login_view(request):
                 login(request, user)
                 return redirect("dashboard")  # Redirige al usuario a 'dashboard'
             else:
-                generarLog(request, 'ERROR', f"Intento de inicio de sesión fallido - Contraseña incorrecta", ruta='/index', usuario=None)
+                generarLog(request, 'WARNING', f"Intento de inicio de sesión fallido - Contraseña incorrecta", ruta='/index', usuario=None)
                 subir_logs_a_bd(request)
                 data['error'] = True
                 data['errorMsg'] = "El correo electrónico o la contraseña son incorrectos."
         except Usuari.DoesNotExist:
-            generarLog(request, 'ERROR', f"Intento de inicio de sesión fallido - Usuario no encontrado", ruta='/index', usuario=None)
+            generarLog(request, 'WARNING', f"Intento de inicio de sesión fallido - Usuario no encontrado", ruta='/index', usuario=None)
             subir_logs_a_bd(request)
             data['error'] = True
             data['errorMsg'] = "El correo electrónico o la contraseña son incorrectos."
