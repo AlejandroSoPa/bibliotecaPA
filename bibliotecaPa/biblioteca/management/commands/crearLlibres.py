@@ -60,8 +60,6 @@ class Command(BaseCommand):
         }
 
         coleccions = {
-
-        coleccions = {
             "Harry Potter i la pedra filosofal": "Sèrie Harry Potter",
             "Harry Potter i la cambra secreta": "Sèrie Harry Potter",
             "Harry Potter i el pres d'Azkaban": "Sèrie Harry Potter",
@@ -237,10 +235,7 @@ class Command(BaseCommand):
                 pagines=pagines_faker,
                 signatura=signatura_faker,
                 ejemplares=5
-                colleccio=coleccions[titol],
-                ejemplares=5
             )
-
 
         for _ in range(90):  # Cambia este número según cuántos registros quieras crear
             titol_faker = faker.text(max_nb_chars=50)
