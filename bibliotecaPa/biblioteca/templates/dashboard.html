@@ -17,7 +17,7 @@
 
         </div>
         <header class="bg-grey-200 py-4 px-6 mb-4 flex flex-row bg-marron text-textWhite">
-            <div id="welcomeMessage" class="text-left flex-1">Benvingut, {{ user.username }}!</div>
+            <div id="welcomeMessage" class="text-left flex-1">Benvingut, {{ user.username }}  !</div>
             <div class="text-center flex items-center">
                 <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
                 <!-- Add a margin to the right of the image -->
@@ -34,7 +34,9 @@
             </div>
         </header>
         <main>
-
+            <p>
+                {{ user }}
+            </p>
         </main>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
