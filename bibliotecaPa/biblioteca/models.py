@@ -19,10 +19,12 @@ class Article(models.Model):
     autor = models.CharField(max_length=200)
     data_publicacio = models.DateField()
     imatge = models.ImageField(upload_to='imatges_cataleg', default='default.jpg', null=True, blank=True)
+    ejemplares = models.IntegerField(default=0)
+    disponibilidad = models.BooleanField(default=True)
 
 class Llibre(Article):
     CDU = models.CharField(max_length=100)
-    ISBN = models.CharField(max_length=13)
+    ISBN = models.CharField(max_length=20)
     editor = models.CharField(max_length=100)
     colleccio = models.CharField(max_length=100)
     pagines = models.IntegerField()

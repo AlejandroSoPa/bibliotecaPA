@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from .models import *
+from django.db.models import Q
 
 from rest_framework.decorators import api_view
 
@@ -9,14 +10,10 @@ def hello(request):
             "hello": "World",
         }, safe=False)
 
-def searchItems(request):
-    query = request.GET.get('searchItem')
-    print(query)
-    items = Article.objects.all()
-    if query:
-        items = items.filter(titol__icontains=query)
-    items = list(items.values())
-    return JsonResponse(items, safe=False)
-
-#    items = Article.objects.filter(titol__icontains="Percy")  # Obtén todos los elementos de la tabla 'Article'
-#    return JsonResponse(list(items.values()), safe=False)  # Convierte el queryset en una lista de diccionarios
+def searchItems(request, itemSearch):
+    # Busca los artículos que coincidan con el título o el autor
+    jsonData = list(Article.objects.filter(Q(titol__icontains=itemSearch) | Q(autor__icontains=itemSearch)).values())
+    return JsonResponse({
+            "status": "OK",
+            "items": jsonData,
+        }, safe=False)
