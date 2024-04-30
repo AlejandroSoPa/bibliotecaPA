@@ -36,17 +36,19 @@ def login_view(request):
                 subir_logs_a_bd(request)
 
                 login(request, user)
-                return redirect("dashboard")  # Redirige al usuario a 'dashboard'
+                return redirect("dashboard")
             else:
-                generarLog(request, 'WARNING', f"Intento de inicio de sesión fallido - Contraseña incorrecta", ruta='/index', usuario=None)
+                generarLog(request, 'WARNING', f"Contraseñas incorrectas: Intento de inicio de sesión fallido - Contraseña incorrecta", ruta='/index', usuario=None)
                 subir_logs_a_bd(request)
-                data['error'] = True
+                data['warning'] = True
                 data['errorMsg'] = "El correo electrónico o la contraseña son incorrectos."
+
         except Usuari.DoesNotExist:
-            generarLog(request, 'WARNING', f"Intento de inicio de sesión fallido - Usuario no encontrado", ruta='/index', usuario=None)
+            generarLog(request, 'WARNING', f"Usuari.DoesNotExist: Intento de inicio de sesión fallido - Usuario no encontrado", ruta='/index', usuario=None)
             subir_logs_a_bd(request)
-            data['error'] = True
+            data['warning'] = True
             data['errorMsg'] = "El correo electrónico o la contraseña son incorrectos."
+
     return render(request, "index.html", data)
 
 def index(request):
@@ -58,7 +60,7 @@ def search(request):
 def dashboard(request):
     print(request.user)
     if not request.user.is_authenticated:
-        generarLog(request, 'FATAL', f"Ha fallado la redirección a la página de dashboard", ruta='/dashboard', usuario=None)
+        generarLog(request, 'ERROR', f"Ha fallado la redirección a la página de dashboard", ruta='/dashboard', usuario=None)
         subir_logs_a_bd(request)
         return redirect('index')
     generarLog(request, 'INFO', f"Inicio de sesión exitoso", ruta='/dashboard', usuario=request.user)
@@ -86,6 +88,8 @@ def password_reset_request(request):
                     'reset_link': reset_link,
                 })
                 send_mail(subject, message, settings.EMAIL_HOST_USER, [email])
+                generarLog(request, 'ERROR', f"Ha fallado la redirección a la página de dashboard", ruta='/dashboard', usuario=None)
+                subir_logs_a_bd(request)
                 return redirect('password_reset_done')
             else:
                 messages.error(request, 'No user with that email address.')
@@ -118,9 +122,9 @@ def change_password(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # Actualiza la sesión del usuario para mantenerla activa
+            update_session_auth_hash(request, user)
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('change_password')  # Redirige para evitar que se vuelva a enviar el formulario
+            return redirect('change_password')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -133,7 +137,7 @@ def edit_profile(request):
         form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')  # Redirect to homepage after successful update
+            return redirect('dashboard')
     else:
         form = CustomUserChangeForm(instance=request.user)
     

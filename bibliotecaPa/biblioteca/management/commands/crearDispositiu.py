@@ -34,7 +34,6 @@ class Command(BaseCommand):
                 "marca": "Apple",
                 "model": "iPad Pro"
             },
-            # Agrega más artículos según sea necesario
         ]
 
         for article_data in articles:
