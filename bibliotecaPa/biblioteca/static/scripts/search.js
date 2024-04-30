@@ -8,47 +8,48 @@ $(document).ready(function () {
 
     // Obtener el valor de 'searchItems' de la URL
     var search = getParameterByName('searchItems');
-
     // Función para realizar la llamada AJAX y mostrar los resultados
+    console.log(localStorage.getItem('checkboxChecked'))
     function searchItems() {
         $.ajax({
             url: '/api/searchItems/' + search,
             type: 'GET',
             success: function (response) {
-                
                 for (var i = 0; i < response.items.length; i++) {
                     var item = response.items[i];
-                    console.log(item);
+                    var checkboxChecked = $('#disponible').prop('checked') || JSON.parse(localStorage.getItem('checkboxChecked'));
                     // Obtener el valor del checkbox "disponible" dentro del bucle
-                    var checkboxChecked = $('#disponible').prop('checked');
+                    console.log(checkboxChecked);
                     // Verificar la disponibilidad del elemento y si debe mostrarse según el estado del checkbox
                     if (checkboxChecked && item.disponibilidad === true) {
                         // Crear el elemento de la tarjeta y agregarlo a los resultados de búsqueda
                         var itemElement = $.parseHTML(`<div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">${item.titol}</h5>
-                                                        <p class="card-text">${item.descripcio}</p>
-                                                        <p class="card-text">${item.autor}</p>
-                                                        <p class="card-text">${item.ejemplares}</p>
-                                                    </div>
-                                                </div>`);
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${item.titol}</h5>
+                                                    <p class="card-text">${item.descripcio}</p>
+                                                    <p class="card-text">${item.autor}</p>
+                                                    <p class="card-text">${item.ejemplares}</p>
+                                                </div>
+                                            </div>`);
                         $('#searchResults').append(itemElement);
                     } else if (!checkboxChecked) {
                         // Si el checkbox "disponible" no está marcado, mostrar todos los elementos
                         var itemElement = $.parseHTML(`<div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">${item.titol}</h5>
-                                                        <p class="card-text">${item.descripcio}</p>
-                                                        <p class="card-text">${item.autor}</p>
-                                                        <p class="card-text">${item.ejemplares}</p>
-                                                    </div>
-                                                </div>`);
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${item.titol}</h5>
+                                                    <p class="card-text">${item.descripcio}</p>
+                                                    <p class="card-text">${item.autor}</p>
+                                                    <p class="card-text">${item.ejemplares}</p>
+                                                </div>
+                                            </div>`);
                         $('#searchResults').append(itemElement);
                     }
                 }
+                // Borrar el elemento del localStorage después de usarlo
             }
         });
     }
+
 
     // Llamar a la función searchItems cuando el documento esté listo
     searchItems();
@@ -57,7 +58,7 @@ $(document).ready(function () {
     $(document).on('submit', '#searchElements', function (event) {
         // Prevenir el comportamiento predeterminado del evento de submit del formulario
         event.preventDefault();
-
+        localStorage.removeItem('checkboxChecked');
         // Obtener el valor de 'searchItems' del input de búsqueda
         search = $('#searchItems').val();
 
