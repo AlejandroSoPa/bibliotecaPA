@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 from biblioteca.models import Llibre
 from datetime import datetime
+from faker import Faker
+from faker import Faker
 
 class Command(BaseCommand):
     help = 'Seed the database with dummy data for Llibre model'
@@ -30,7 +32,8 @@ class Command(BaseCommand):
             "Percy Jackson i els Déus de l'Olimp: La maldició del tità": "Rick Riordan",
             "Percy Jackson i els Déus de l'Olimp: La batalla del laberint": "Rick Riordan"
         }
-        
+
+
         editors = {
             "Harry Potter i la pedra filosofal": "Bloomsbury Publishing",
             "Harry Potter i la cambra secreta": "Bloomsbury Publishing",
@@ -55,8 +58,8 @@ class Command(BaseCommand):
             "Percy Jackson i els Déus de l'Olimp: La maldició del tità": "Scholastic Corporation",
             "Percy Jackson i els Déus de l'Olimp: La batalla del laberint": "Scholastic Corporation"
         }
-        
-        col·leccions = {
+
+        coleccions = {
             "Harry Potter i la pedra filosofal": "Sèrie Harry Potter",
             "Harry Potter i la cambra secreta": "Sèrie Harry Potter",
             "Harry Potter i el pres d'Azkaban": "Sèrie Harry Potter",
@@ -80,7 +83,8 @@ class Command(BaseCommand):
             "Percy Jackson i els Déus de l'Olimp: La maldició del tità": "Percy Jackson Series",
             "Percy Jackson i els Déus de l'Olimp: La batalla del laberint": "Percy Jackson Series"
         }
-        
+
+
         pagines = {
             "Harry Potter i la pedra filosofal": 256,
             "Harry Potter i la cambra secreta": 288,
@@ -181,25 +185,54 @@ class Command(BaseCommand):
             "Percy Jackson i els Déus de l'Olimp: La batalla del laberint": "2008-05-06"
         }
 
-        for titol, autor in autors.items():
-            data_publicacio = datetime.strptime(fechas_publicacion[titol], '%Y-%m-%d').date()
-            cdu = cdu_values[titol]
-            editor = editors[titol]
-            colleccio = col·leccions[titol]
-            num_pagines = pagines[titol]
-            isbn = ISBNs[titol]
+        faker = Faker()
 
+        disponible=True
+
+        for titol, autor in autors.items():
+            data_publicacio = datetime.strptime(fechas_publicacion[titol], "%Y-%m-%d")
+            data_publicacio = datetime.strptime(fechas_publicacion[titol], "%Y-%m-%d")
             Llibre.objects.create(
                 titol=titol,
-                descripcio=f"Una aventura sobre {titol}",
                 autor=autor,
+                editor=editors[titol],
+                pagines=pagines[titol],
+                ISBN=ISBNs[titol],
+                CDU=cdu_values[titol],
                 data_publicacio=data_publicacio,
-                CDU=cdu,
-                ISBN=isbn,
-                editor=editor,
-                colleccio=colleccio,
-                pagines=num_pagines,
-                signatura=f"{autor[0]}{num_pagines}"  # Usando el primer caracter del autor y el número de páginas para la signatura
+                colleccio=coleccions[titol],
+                ejemplares=5,
+                disponibilidad=disponible
             )
 
-        self.stdout.write(self.style.SUCCESS('Data seeded successfully'))
+
+        for _ in range(90):  # Cambia este número según cuántos registros quieras crear
+            titol_faker = faker.text(max_nb_chars=50)
+            descripcio_faker = faker.paragraph()
+            autor_faker = faker.name()
+            data_publicacio_faker = faker.date_between(start_date='-5y', end_date='today')
+            imatge_faker = 'dummy.jpg'  # Reemplaza esto con el nombre de tus imágenes si tienes alguna
+            CDU_faker = faker.random_int(min=100, max=999)
+            ISBN_faker = faker.isbn13()
+            editor_faker = faker.company()
+            colleccio_faker = faker.word()
+            pagines_faker = faker.random_int(min=50, max=500)
+            signatura_faker = faker.word()
+            disponible=False
+            Llibre.objects.create(
+                titol=titol_faker,
+                descripcio=descripcio_faker,
+                autor=autor_faker,
+                data_publicacio=data_publicacio_faker,
+                imatge=imatge_faker,
+                CDU=CDU_faker,
+                ISBN=ISBN_faker,
+                editor=editor_faker,
+                colleccio=colleccio_faker,
+                pagines=pagines_faker,
+                signatura=signatura_faker,
+                ejemplares=5,
+                disponibilidad=disponible
+            )
+
+        self.stdout.write(self.style.SUCCESS('Seed data generated successfully for Llibre model'))

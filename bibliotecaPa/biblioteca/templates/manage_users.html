@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% load static %}
+        <link href="{% static 'output.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <title>Gestionar usuaris</title>
+        {% url 'edit_profile' as edit_profile_url %}
+
+    </head>
+
+    <body class="bg-caoba">
+
+        <header class="bg-marron py-2 flex justify-center items-center text-textWhite">
+            <div class="text-center flex items-center">
+                <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
+                <!-- Add a margin to the right of the image -->
+                <p id="nameApp"><a href="/dashboard">Biblioteca MariCarmen</a></p>
+            </div>
+        </header>
+
+        <h1 class="text-5xl text-textWhite items-center flex justify-center" style="margin-top: 25px;">Els teus usuaris
+        </h1><br>
+
+        <div id="showUsers" class="showUsers">
+
+        </div>
+
+
+        <script>
+            var centreId = "{{ user.centre.id }}";
+            var editProfileUrl = "{{ edit_profile_url }}";
+
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link rel="stylesheet"
+            href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script src="{% static '/scripts/manage_users.js' %}"></script>
+        {% if error %}
+        <script>
+            createNotification("error", "{{ errorMsg }}");
+        </script>
+        {% endif %}
+    </body>
+
+</html>
