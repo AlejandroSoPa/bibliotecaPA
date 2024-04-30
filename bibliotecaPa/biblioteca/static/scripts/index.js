@@ -23,9 +23,6 @@ $(document).ready(function () {
         minLength: 3 // La cantidad mínima de caracteres antes de que se muestren sugerencias
     });
 
-
-
-
     // Sign Out
     $("#signOut").click(function () {
         localStorage.removeItem('email');
@@ -38,6 +35,21 @@ $(document).ready(function () {
         }, 2000);
     });
 
+
+    function checkboxChecked() {
+        return $('#disponible').prop('checked');
+    }
+
+    // Evento de envío del formulario de búsqueda
+    $('#searchForm').submit(function (event) {
+        event.preventDefault(); // Evitar el envío del formulario por defecto
+
+        var search = $('#searchItems').val(); // Obtener el término de búsqueda
+        var disponible = checkboxChecked(); // Obtener el valor del checkbox
+        localStorage.setItem('checkboxChecked', disponible);
+        // Redirigir a la página de búsqueda con los parámetros en la URL
+        window.location.href = '/search/?searchItems=' + search;
+    });
 });
 
 function createNotification(type, msg) {
