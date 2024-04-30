@@ -17,3 +17,20 @@ def searchItems(request, itemSearch):
             "status": "OK",
             "items": jsonData,
         }, safe=False)
+
+def getUsers(request,centre):
+    # Devuelve todos los usuarios
+    jsonData = list(Usuari.objects.filter(centre=centre).values())
+    return JsonResponse({
+            "status": "OK",
+            "users": jsonData,
+        }, safe=False)
+
+def editUser(request,id):
+    # Edita un usuario
+    user = Usuari.objects.get(id=id)
+    user.admin = not user.admin
+    user.save()
+    return JsonResponse({
+            "status": "OK",
+        }, safe=False)

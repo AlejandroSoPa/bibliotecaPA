@@ -96,3 +96,21 @@ textarea {
     background-color: #6c4f47;
     padding: 10px;
 }
+
+.dashboard-items {
+    margin-top: 10%;
+}
+
+.admin-options {
+    width: fit-content;
+    margin: 0 50px;
+}
+
+.showUsers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 10px;
+    /* Ajusta el tamaño de las columnas automáticamente */
+    grid-gap: 20px;
+    /* Espacio entre las tarjetas de usuario */
+}

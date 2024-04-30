@@ -14,7 +14,10 @@ urlpatterns = [
     path('reset-password/', password_reset_request, name='password_reset_request'),
     path('reset-password/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('change-password/', change_password, name='change_password'),
-    path('edit_profile/', edit_profile, name='edit_profile'),
+    path('edit_profile/<int:user_id>/', edit_profile, name='edit_profile'),
     path('search/', search, name='search'),
     path('api/searchItems/<str:itemSearch>', api.searchItems, name='searchItem'),
+    path('usuaris/',manage_users, name='manage_users'),
+    path('api/getUsers/<int:centre>', api.getUsers, name='getUsers'),
+    path('api/editUser/<int:id>', api.editUser, name='editUser'),
 ]

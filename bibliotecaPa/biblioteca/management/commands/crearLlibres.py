@@ -187,7 +187,7 @@ class Command(BaseCommand):
 
         faker = Faker()
 
-        faker = Faker()
+        disponible=True
 
         for titol, autor in autors.items():
             data_publicacio = datetime.strptime(fechas_publicacion[titol], "%Y-%m-%d")
@@ -199,13 +199,10 @@ class Command(BaseCommand):
                 pagines=pagines[titol],
                 ISBN=ISBNs[titol],
                 CDU=cdu_values[titol],
-                editor=editors[titol],
-                pagines=pagines[titol],
-                ISBN=ISBNs[titol],
-                CDU=cdu_values[titol],
                 data_publicacio=data_publicacio,
                 colleccio=coleccions[titol],
-                ejemplares=5
+                ejemplares=5,
+                disponibilidad=disponible
             )
 
 
@@ -221,8 +218,8 @@ class Command(BaseCommand):
             colleccio_faker = faker.word()
             pagines_faker = faker.random_int(min=50, max=500)
             signatura_faker = faker.word()
-
-            llibre = Llibre.objects.create(
+            disponible=False
+            Llibre.objects.create(
                 titol=titol_faker,
                 descripcio=descripcio_faker,
                 autor=autor_faker,
@@ -234,35 +231,8 @@ class Command(BaseCommand):
                 colleccio=colleccio_faker,
                 pagines=pagines_faker,
                 signatura=signatura_faker,
-                ejemplares=5
-            )
-
-        for _ in range(90):  # Cambia este número según cuántos registros quieras crear
-            titol_faker = faker.text(max_nb_chars=50)
-            descripcio_faker = faker.paragraph()
-            autor_faker = faker.name()
-            data_publicacio_faker = faker.date_between(start_date='-5y', end_date='today')
-            imatge_faker = 'dummy.jpg'  # Reemplaza esto con el nombre de tus imágenes si tienes alguna
-            CDU_faker = faker.random_int(min=100, max=999)
-            ISBN_faker = faker.isbn13()
-            editor_faker = faker.company()
-            colleccio_faker = faker.word()
-            pagines_faker = faker.random_int(min=50, max=500)
-            signatura_faker = faker.word()
-
-            llibre = Llibre.objects.create(
-                titol=titol_faker,
-                descripcio=descripcio_faker,
-                autor=autor_faker,
-                data_publicacio=data_publicacio_faker,
-                imatge=imatge_faker,
-                CDU=CDU_faker,
-                ISBN=ISBN_faker,
-                editor=editor_faker,
-                colleccio=colleccio_faker,
-                pagines=pagines_faker,
-                signatura=signatura_faker,
-                ejemplares=5
+                ejemplares=5,
+                disponibilidad=disponible
             )
 
         self.stdout.write(self.style.SUCCESS('Seed data generated successfully for Llibre model'))

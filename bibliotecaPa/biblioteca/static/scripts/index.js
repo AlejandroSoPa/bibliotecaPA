@@ -40,8 +40,6 @@ $(document).ready(function () {
 
 });
 
-
-
 function createNotification(type, msg) {
     let nodeElement = ""
     let style = ""
@@ -52,7 +50,7 @@ function createNotification(type, msg) {
                                         <span>${msg}</span>
                                        </div>
             `)
-            style = { 
+            style = {
                 padding: "12px 20px",
                 color: "#fff",
                 display: "inline-block",
@@ -75,7 +73,7 @@ function createNotification(type, msg) {
                                         <span>${msg}</span>
                                        </div>
             `)
-            style = { 
+            style = {
                 padding: "12px 20px",
                 color: "#fff",
                 display: "inline-block",
@@ -98,8 +96,8 @@ function createNotification(type, msg) {
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-alert-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
                                             <span>${msg}</span>
                                             </div>`
-                                    );
-            style = { 
+            );
+            style = {
                 padding: "12px 20px",
                 color: "#fff",
                 display: "inline-block",
@@ -115,11 +113,11 @@ function createNotification(type, msg) {
                 maxWidth: "calc(50% - 20px)",
                 zIndex: "2147483647"
             };
-                                    
+
             break;
-            
+
     }
-    
+
     $.ajax({
         url: 'notifications/',
         type: 'POST',
@@ -136,20 +134,20 @@ function createNotification(type, msg) {
                 duration: -1,
                 style: style
             }).showToast();
-    
+
             setTimeout(function () {
                 window.location.href = '/dashboard';
             }, 3000);
         },
         error: function (xhr, errmsg, err) {
-                Toastify({
-                    node: nodeElement[0],
-                    className: `notification ${type}`,
-                    close: true,
-                    duration: -1,
-                    style: style
-                }).showToast();
-            }
+            Toastify({
+                node: nodeElement[0],
+                className: `notification ${type}`,
+                close: true,
+                duration: -1,
+                style: style
+            }).showToast();
         }
+    }
     );
 }

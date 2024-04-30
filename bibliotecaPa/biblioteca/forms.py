@@ -8,7 +8,7 @@ class PasswordResetForm(forms.Form):
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = Usuari
-        fields = ('username', 'centre', 'cicle', 'imatge')
+        fields = ('first_name', 'last_name',     'imatge')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
