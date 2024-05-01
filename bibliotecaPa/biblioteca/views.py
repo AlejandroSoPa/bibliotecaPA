@@ -124,14 +124,19 @@ def password_reset_confirm(request, uidb64, token):
 
 @login_required
 def change_password(request):
+    data = {}
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
             messages.success(request, 'Your password was successfully updated!')
+            data['info'] = True
+            data['infoMsg'] = "La contrasenya s'ha canviat correctament."
             return redirect('change_password')
         else:
+            data['warning'] = True
+            data['infoMsg'] = "No s'ha pogut canviar la contrasenya."
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
@@ -140,9 +145,9 @@ def change_password(request):
 
 @login_required
 def edit_profile(request, user_id):
+    data = {}
     user_to_edit = get_object_or_404(Usuari, id=user_id)
     
-    # Asegúrate de que el usuario que intenta editar el perfil sea el mismo que está autenticado
     if not (request.user.id == user_id or request.user.centre.id == user_to_edit.centre.id):
         return HttpResponseForbidden("You are not allowed to edit this profile.")
     
@@ -150,7 +155,12 @@ def edit_profile(request, user_id):
         form = CustomUserChangeForm(request.POST, request.FILES, instance=user_to_edit)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')
+            data['info'] = True
+            data['infoMsg'] = "Usuari editat correctament."
+            if user_to_edit:
+                return redirect('manage_users')
+            else:
+                return redirect('dashboard')
     else:
         form = CustomUserChangeForm(instance=user_to_edit)
     

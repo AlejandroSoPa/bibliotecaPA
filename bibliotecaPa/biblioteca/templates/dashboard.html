@@ -63,6 +63,21 @@
             href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
         <script src="{% static '/scripts/index.js' %}"></script>
+        {% if error %}
+        <script>
+            createNotification("error", "{{ errorMsg }}");
+        </script>
+        {% endif %}
+        {% if warning %}
+        <script>
+            createNotification("warning", "{{ errorMsg }}");
+        </script>
+        {% endif %}
+        {% if info %}
+        <script>
+            createNotification("info", "{{ errorMsg }}");
+        </script>
+        {% endif %}
     </body>
 
 </html>

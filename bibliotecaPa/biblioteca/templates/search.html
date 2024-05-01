@@ -66,6 +66,16 @@
             createNotification("error", "{{ errorMsg }}");
         </script>
         {% endif %}
+        {% if warning %}
+        <script>
+            createNotification("warning", "{{ errorMsg }}");
+        </script>
+        {% endif %}
+        {% if info %}
+        <script>
+            createNotification("info", "{{ errorMsg }}");
+        </script>
+        {% endif %}
     </body>
 
 </html>
