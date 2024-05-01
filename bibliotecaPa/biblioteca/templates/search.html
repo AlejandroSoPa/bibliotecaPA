@@ -20,15 +20,16 @@
             </div>
         </header>
 
-        <form class="mx-decima" action="{% url 'search' %}" style="margin-top: 25px;">
+        <form id="searchElements" class="mx-decima" action="{% url 'search' %}" style="margin-top: 25px;">
             <label for="searchItems"
                 class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative search-container flex items-center">
                 <div class="ml-2">
-                    <input id="disponible" type="checkbox" value=""
+                    <label for="disponible" class="ms-2 text-sm font-medium text-textWhite dark:text-gray-300">Article
+                        Disponible?</label>
+                    <input id="disponible" type="checkbox" value="disponible" name="disponible"
                         class="disponible w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="disponible"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Disponible?</label>
+
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -52,8 +53,6 @@
         <div id="searchResults" class="searchResults grid-cols-2">
 
         </div>
-
-
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <link rel="stylesheet"

@@ -3,10 +3,6 @@ from .models import Usuari, Centre, Article, Llibre, CD, DVD, BR, Dispositiu, Re
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
-class CentreInline(admin.TabularInline):
-    model = Centre
-    extra = 0
-
 class UsuariAdmin(admin.ModelAdmin):
     list_display = ["username", "data_naixement", 'centre' , "cicle", "imatge", "admin"]
 
@@ -64,11 +60,6 @@ class DispositiuInline(admin.TabularInline):
 class ArticleAdmin(admin.ModelAdmin):
     inlines = [LlibreInline, CDInline]
     list_display = ["titol", "autor", "data_publicacio"]
-
-
-class CentreInline(admin.ModelAdmin):
-    list_display = ["nom"]
-
 
 
 # Register your models here.

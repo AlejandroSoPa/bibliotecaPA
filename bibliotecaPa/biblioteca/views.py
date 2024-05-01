@@ -19,6 +19,9 @@ from django.http import HttpResponse, JsonResponse
 from .utils import generarLog, subir_logs_a_bd 
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.http import HttpResponseForbidden
+
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CustomUserChangeForm
 # Create your views here.
@@ -56,6 +59,9 @@ def index(request):
 
 def search(request):
     return render(request, 'search.html')
+
+def manage_users(request):
+    return render(request, 'manage_users.html')
 
 def dashboard(request):
     print(request.user)
@@ -131,14 +137,22 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     return render(request, 'change_password.html', {'form': form})
 
+
 @login_required
-def edit_profile(request):
+def edit_profile(request, user_id):
+    user_to_edit = get_object_or_404(Usuari, id=user_id)
+    
+    # Asegúrate de que el usuario que intenta editar el perfil sea el mismo que está autenticado
+    if not (request.user.id == user_id or request.user.centre.id == user_to_edit.centre.id):
+        return HttpResponseForbidden("You are not allowed to edit this profile.")
+    
     if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=user_to_edit)
         if form.is_valid():
             form.save()
             return redirect('dashboard')
     else:
-        form = CustomUserChangeForm(instance=request.user)
+        form = CustomUserChangeForm(instance=user_to_edit)
     
     return render(request, 'edit_profile.html', {'form': form})
+

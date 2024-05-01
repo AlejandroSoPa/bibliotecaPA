@@ -28,8 +28,17 @@
             <div class="grid grid-cols-2 justify-between text-center bg-caoba h-dvh">
                 <div class=" fade-in-text">
                     <h1 class="text-5xl mt-decima text-textWhite ">Cercar al catàleg</h1>
+
                     <div class="mt-xl mx-decima ">
-                        <form class="mx-decima mt-decima" action="{% url 'search' %}">
+                        <div class="">
+                            <label for="disponible"
+                                class="text-sm font-medium text-textWhite dark:text-gray-300">Article
+                                Disponible?</label>
+                            <input id="disponible" type="checkbox" value="disponible" name="disponible"
+                                class="disponible w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
+                        </div>
+                        <form class="mx-decima" id="searchForm" action="{% url 'search' %}">
                             <label for="searchItems"
                                 class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                             <div class="relative search-container">
