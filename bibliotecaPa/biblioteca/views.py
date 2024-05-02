@@ -39,17 +39,21 @@ def login_view(request):
                 subir_logs_a_bd(request)
 
                 login(request, user)
-                return redirect("dashboard")  # Redirige al usuario a 'dashboard'
+                return redirect("dashboard")
+		# data['info'] = True
+                # data['errorMsg'] = "Inicio de sesion correcto, redireccionando..."
             else:
-                generarLog(request, 'WARNING', f"Intento de inicio de sesión fallido - Contraseña incorrecta", ruta='/index', usuario=None)
+                generarLog(request, 'WARNING', f"Contraseñas incorrectas: Intento de inicio de sesión fallido - Contraseña incorrecta", ruta='/index', usuario=None)
                 subir_logs_a_bd(request)
-                data['error'] = True
+                data['warning'] = True
                 data['errorMsg'] = "El correo electrónico o la contraseña son incorrectos."
+
         except Usuari.DoesNotExist:
-            generarLog(request, 'WARNING', f"Intento de inicio de sesión fallido - Usuario no encontrado", ruta='/index', usuario=None)
+            generarLog(request, 'WARNING', f"Usuari.DoesNotExist: Intento de inicio de sesión fallido - Usuario no encontrado", ruta='/index', usuario=None)
             subir_logs_a_bd(request)
-            data['error'] = True
+            data['warning'] = True
             data['errorMsg'] = "El correo electrónico o la contraseña son incorrectos."
+
     return render(request, "index.html", data)
 
 def index(request):
@@ -64,7 +68,7 @@ def manage_users(request):
 def dashboard(request):
     print(request.user)
     if not request.user.is_authenticated:
-        generarLog(request, 'FATAL', f"Ha fallado la redirección a la página de dashboard", ruta='/dashboard', usuario=None)
+        generarLog(request, 'ERROR', f"Ha fallado la redirección a la página de dashboard", ruta='/dashboard', usuario=None)
         subir_logs_a_bd(request)
         return redirect('index')
     generarLog(request, 'INFO', f"Inicio de sesión exitoso", ruta='/dashboard', usuario=request.user)
@@ -92,6 +96,8 @@ def password_reset_request(request):
                     'reset_link': reset_link,
                 })
                 send_mail(subject, message, settings.EMAIL_HOST_USER, [email])
+                generarLog(request, 'ERROR', f"Ha fallado la redirección a la página de dashboard", ruta='/dashboard', usuario=None)
+                subir_logs_a_bd(request)
                 return redirect('password_reset_done')
             else:
                 messages.error(request, 'No user with that email address.')
@@ -120,14 +126,19 @@ def password_reset_confirm(request, uidb64, token):
 
 @login_required
 def change_password(request):
+    data = {}
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # Actualiza la sesión del usuario para mantenerla activa
+            update_session_auth_hash(request, user)
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('change_password')  # Redirige para evitar que se vuelva a enviar el formulario
+            data['info'] = True
+            data['infoMsg'] = "La contrasenya s'ha canviat correctament."
+            return redirect('change_password')
         else:
+            data['warning'] = True
+            data['infoMsg'] = "No s'ha pogut canviar la contrasenya."
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
@@ -136,9 +147,9 @@ def change_password(request):
 
 @login_required
 def edit_profile(request, user_id):
+    data = {}
     user_to_edit = get_object_or_404(Usuari, id=user_id)
     
-    # Asegúrate de que el usuario que intenta editar el perfil sea el mismo que está autenticado
     if not (request.user.id == user_id or request.user.centre.id == user_to_edit.centre.id):
         return HttpResponseForbidden("You are not allowed to edit this profile.")
     
@@ -146,7 +157,12 @@ def edit_profile(request, user_id):
         form = CustomUserChangeForm(request.POST, request.FILES, instance=user_to_edit)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')  # Redirect to homepage after successful update
+            data['info'] = True
+            data['infoMsg'] = "Usuari editat correctament."
+            if user_to_edit:
+                return redirect('manage_users')
+            else:
+                return redirect('dashboard')
     else:
         form = CustomUserChangeForm(instance=user_to_edit)
     

@@ -13,7 +13,7 @@ class CentreAdmin(admin.ModelAdmin):
     list_display = ["nom"]
 
 class LlibreAdmin(admin.ModelAdmin):
-    list_display = ["titol", "pagines", "ISBN"]
+    list_display = ["titol", "pagines", "ISBN", "disponibilidad"]
 
 class CDAdmin(admin.ModelAdmin):
     list_display = ["discografia", "durada"]
