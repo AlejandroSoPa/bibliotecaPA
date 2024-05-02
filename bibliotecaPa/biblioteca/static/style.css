@@ -114,3 +114,7 @@ textarea {
     grid-gap: 20px;
     /* Espacio entre las tarjetas de usuario */
 }
+
+.add-user {
+    margin-left: 50%;
+}

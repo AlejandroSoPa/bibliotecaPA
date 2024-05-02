@@ -1,29 +1,21 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from .models import *
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.http import JsonResponse
-from django.contrib.auth.forms import PasswordResetForm
-from django.core.mail import send_mail
-from django.conf import settings
-from django.template.loader import render_to_string
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
 from django.contrib.auth.hashers import check_password
-from django.http import HttpResponse, JsonResponse
-from .utils import generarLog, subir_logs_a_bd 
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
-from django.http import HttpResponseForbidden
-
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from .forms import CustomUserChangeForm, CustomCreateUserForm
+from .models import Usuari
+from .utils import generarLog, subir_logs_a_bd
+from django.conf import settings
+import random
+import string
 
-from .forms import CustomUserChangeForm
 # Create your views here.
 
 def login_view(request):
@@ -64,6 +56,9 @@ def search(request):
 
 def manage_users(request):
     return render(request, 'manage_users.html')
+
+def create_user(request):
+    return render(request, 'create_user.html')
 
 def dashboard(request):
     print(request.user)
@@ -167,4 +162,55 @@ def edit_profile(request, user_id):
         form = CustomUserChangeForm(instance=user_to_edit)
     
     return render(request, 'edit_profile.html', {'form': form})
+
+def generate_random_password():
+    # Define los requisitos para la contraseña
+    length = random.randint(8, 16)  # Longitud aleatoria entre 8 y 16 caracteres
+    uppercase = string.ascii_uppercase
+    lowercase = string.ascii_lowercase
+    digits = string.digits
+    special_chars = '@#$%&*!'  # Puedes ajustar esto según tus necesidades
+    
+    # Genera una contraseña aleatoria
+    password = ''.join(random.choices(uppercase + lowercase + digits + special_chars, k=length))
+    
+    # Asegúrate de que la contraseña cumpla con los criterios
+    while not (any(char in uppercase for char in password) and
+               any(char in lowercase for char in password) and
+               any(char in digits for char in password)):
+        password = ''.join(random.choices(uppercase + lowercase + digits + special_chars, k=length))
+    
+    return password
+
+def create_user(request):
+    data = {}
+    if request.method == 'POST':
+        form = CustomCreateUserForm(request.POST)
+        print(form)
+        if form.is_valid():
+            # Generate a random password
+            password = generate_random_password()
+            # Set the password in the form
+            form.instance.set_password(password)
+            
+            # Save the user object without committing to the database
+            user = form.save(commit=False)
+            # Save the user
+            user.save()
+            # Send the password via email
+            send_mail(
+                'Compte a biblio7 creat correctament',
+                f"Hola,\n\nEl teu compte ha sigut creat correctament. La teva contrasenya és: {password}\nUs recomanem canviar la contrasenya\n\nPots iniciar sessió pulsant el següent enllaç: <a href='http://127.0.0.1:8000/'>Iniciar sessió</a>.\nL'equip de la biblioteca.\n\n",
+                settings.EMAIL_HOST_USER,
+                [form.cleaned_data['email']],
+                fail_silently=False,
+            )
+            data['info'] = True
+            data['infoMsg'] = "Usuari creat correctament."
+            return redirect('manage_users')
+    else:
+        form = CustomCreateUserForm()
+    
+    return render(request, 'create_user.html', {'form': form})
+
 
