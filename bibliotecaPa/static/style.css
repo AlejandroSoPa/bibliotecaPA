@@ -1,0 +1,116 @@
+
+#popUp::-webkit-scrollbar {
+    display: none;
+    /* Ocultar la barra de desplazamiento en navegadores webkit (Chrome, Safari, etc.) */
+}
+
+#popUp {
+    scrollbar-width: none;
+    /* Ocultar la barra de desplazamiento en navegadores que la admiten */
+    -ms-overflow-style: none;
+    /* Ocultar la barra de desplazamiento en Internet Explorer y Edge */
+}
+
+.remove-item-btn {
+    color: red;
+    padding: 5px;
+}
+
+.alert {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.alert-error {
+    border: 3px solid red;
+}
+
+.alert-success {
+    border: 3px solid green;
+}
+
+.alert-warning {
+    border: 3px solid orangered;
+}
+
+
+#modifyProfile {
+    margin: 0 10px;
+}
+
+.fade-in-text {
+    animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#layout {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:  "header"  "main"  "footer";
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+}
+
+footer {
+    grid-area: footer;
+}
+
+input,
+select,
+textarea {
+    color: #000000;
+}
+
+#searchResults {
+    margin:  15px 10px;
+    column-count: 2;
+    /* Define el número de columnas */
+    column-gap: 20px;
+    /* Define el espacio entre las columnas */
+}
+
+.card {
+    color: #ffffff;
+    /* Ancho máximo de los elementos */
+    break-inside: avoid-column;
+    /* Evita que los elementos se dividan en columnas */
+    margin-bottom: 20px;
+    /* Espacio entre los elementos */
+    background-color: #6c4f47;
+    padding: 10px;
+}
+
+.dashboard-items {
+    margin-top: 10%;
+}
+
+.admin-options {
+    width: fit-content;
+    margin: 0 50px;
+}
+
+.showUsers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 10px;
+    /* Ajusta el tamaño de las columnas automáticamente */
+    grid-gap: 20px;
+    /* Espacio entre las tarjetas de usuario */
+}

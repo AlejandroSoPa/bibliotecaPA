@@ -40,6 +40,8 @@ def login_view(request):
 
                 login(request, user)
                 return redirect("dashboard")
+		# data['info'] = True
+                # data['errorMsg'] = "Inicio de sesion correcto, redireccionando..."
             else:
                 generarLog(request, 'WARNING', f"Contraseñas incorrectas: Intento de inicio de sesión fallido - Contraseña incorrecta", ruta='/index', usuario=None)
                 subir_logs_a_bd(request)

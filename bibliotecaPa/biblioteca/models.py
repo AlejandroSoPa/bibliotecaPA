@@ -16,7 +16,7 @@ class Centre(models.Model):
 class Article(models.Model):
     titol = models.CharField(max_length=200)
     descripcio = models.TextField()
-    autor = models.CharField(max_length=200)
+    autor = models.CharField(max_length=200, null=True)
     data_publicacio = models.DateField()
     imatge = models.ImageField(upload_to='imatges_cataleg', default='default.jpg', null=True, blank=True)
     ejemplares = models.IntegerField(default=0)
