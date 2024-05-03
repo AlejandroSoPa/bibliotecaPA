@@ -18,22 +18,34 @@
         </div>
         <header class="bg-grey-200 py-4 px-6 mb-4 flex flex-row bg-marron text-textWhite">
             <div id="welcomeMessage" class="text-left flex-1">
-                Benvingut, {{ user.username }}! <br>
-                Rol:
-                {% if user.is_superuser %}
-                Admin
-                {% elif user.admin %}
-                Bibliotecari
-                {% else %}
-                Usuari
-                {% endif %}
+                <div class="text-center flex items-center">
+                    <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
+                    <h1 id="nameApp"><a href="/">Biblioteca Mari Carmen Brito</a></h1>
+                </div>
+                <p>Benvingut, {{ user.email }}!</p>
+                <p>Rol:
+                    {% if user.is_superuser %}
+                    Admin
+                    {% elif user.admin %}
+                    Bibliotecari
+                    {% else %}
+                    Usuari
+                    {% endif %}
+                </p>
             </div>
 
-            <div class="text-center flex items-center">
-                <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
-                <!-- Add a margin to the right of the image -->
-                <p id="nameApp"><a href="/">Biblioteca MariCarmen</a></p>
+            <div class="searchHeader">
+                <form id="searchElements" class="mx-decima" action="{% url 'search' %}" style="margin-top: 25px;">
+                    <div class="relative search-container flex items-center">
+                        <input type="search" id="searchItems" name="searchItems"
+                            class="searchItems block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Buscar articles, exemple: El resplandor" />
+                        <button type="submit"
+                            class="search-button text-white bg-verde absolute end-2.5 bottom-2.5 bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 ">Busca</button>
+                    </div>
+                </form>
             </div>
+            
             <div id="options" class="text-right flex-1">
                 <button id="changePassword" class="mx-2"><a href="{% url 'change_password' %}">Canvi de
                         Contrasenya</a></button>
@@ -42,7 +54,7 @@
                 </button>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit">Cerrar sesion</button>
+                    <button type="submit">Tancar sessió</button>
                 </form>
             </div>
         </header>

@@ -78,6 +78,53 @@ textarea {
     color: #000000;
 }
 
+#options {
+    display: grid;
+    flex-direction: column;
+}
+
+#welcomeMessage {
+    padding: 5px;
+}
+
+#options button {
+    margin: 0 5px;
+    background-color: #6c4f47;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    justify-self: right;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+#options form {
+    margin: 0;
+    padding: 5px;
+    background-color: #6c4f47;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    max-height: 34px;
+    max-width: 200px;
+    justify-self: right;
+}
+
+#options form button{
+    margin: 0;
+}
+
+.searchHeader {
+    width: 800px;
+}
+
+#nameApp {
+    text-decoration: underline;
+    font-style: italic;
+}
+
 #searchResults {
     margin:  15px 10px;
     column-count: 2;
@@ -113,4 +160,8 @@ textarea {
     /* Ajusta el tamaño de las columnas automáticamente */
     grid-gap: 20px;
     /* Espacio entre las tarjetas de usuario */
+}
+
+#id_imatge {
+    color: #ffffff;
 }

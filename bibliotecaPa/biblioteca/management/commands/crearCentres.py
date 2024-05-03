@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         bibliotecas = [
-            "Biblioteca Mari Carmen",
+            "Biblioteca Mari Carmen Brito",
             "Biblioteca Central de Cornella",
             "Biblioteca Sant Ildefons",
             # Agrega más nombres de bibliotecas aquí...
