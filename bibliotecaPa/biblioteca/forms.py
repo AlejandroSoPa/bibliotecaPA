@@ -14,3 +14,6 @@ class CustomUserChangeForm(UserChangeForm):
         super().__init__(*args, **kwargs)
         # Oculta el campo de contraseña y el mensaje "No password set"
         self.fields.pop('password')
+        self.fields["first_name"].label = "Nom"
+        self.fields["last_name"].label = "Cognoms"
+        self.fields["imatge"].label = "Imatge de perfil"
