@@ -1,3 +1,4 @@
+!
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,49 +29,29 @@
         </header>
         <div class="fade-in-text">
             <h1 class="text-5xl mt-lg text-textWhite items-center flex justify-center">Crear usuari</h1><br>
-            <div class="flex justify-center w-full items-center h-full">
-
+            <div class="flex justify-center w-full items-center text-textWhite">
                 <form method="post" enctype="multipart/form-data"
                     class="bg-marron shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 align-middle">
                     {% csrf_token %}
-                    {% for field in form %}
-                    <p class="mb-4">
-                        <label class="block text-textWhite text-sm font-bold mb-2" for="{{ field.id_for_label }}">
-                            {{ field.label }}
-                        </label>
-                        {{ field }}
-                        <br><br>
-                        {% for error in field.errors %}
-                    <p class="text-textWhite text-xs italic">
-                        {% if error %}
-                        <script>
-                            createNotification("error", "{{ error }}");
-                        </script>
-                        {% endif %}
-                    </p>
-                    {% endfor %}
-                    {% endfor %}
-                    <br><br><button type="submit"
-                        class="m-8 bg-verde text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ">Guardar
-                        canvis</button>
+                    {{ form.as_p }}
+                    <br>
+                    <button type="submit"
+                        class="m-8 bg-verde text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ">Importar</button>
                 </form>
+                <br>
             </div>
-        </div>
-        {% if error %}
-        <script>
-            createNotification("error", "{{ errorMsg }}");
-        </script>
-        {% endif %}
-        {% if warning %}
-        <script>
-            createNotification("warning", "{{ errorMsg }}");
-        </script>
-        {% endif %}
-        {% if info %}
-        <script>
-            createNotification("info", "{{ errorMsg }}");
-        </script>
-        {% endif %}
+            <div class="flex justify-center w-full items-center">
+                <textarea name="feedback" id="" cols="70" rows="10" readonly>
+                    {% for message in feedback_messages %}
+                        {{ message }}
+                        {% if not forloop.last %}
+                            
+                        {% endif %}
+                    {% endfor %}
+                </textarea>
+            </div>
+
+
     </body>
 
 </html>

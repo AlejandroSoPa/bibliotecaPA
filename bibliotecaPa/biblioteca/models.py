@@ -13,6 +13,9 @@ class Usuari(AbstractUser):
 class Centre(models.Model):
     nom = models.CharField(max_length=128)
 
+    def __str__(self):
+        return self.nom
+
 class Article(models.Model):
     titol = models.CharField(max_length=200)
     descripcio = models.TextField()

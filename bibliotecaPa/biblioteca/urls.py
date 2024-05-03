@@ -21,4 +21,5 @@ urlpatterns = [
     path('api/getUsers/<int:centre>', api.getUsers, name='getUsers'),
     path('api/editUser/<int:id>', api.editUser, name='editUser'),
     path('create_user/', create_user, name='create_user'),
+    path('import_users/', import_users, name='import_users'),
 ]

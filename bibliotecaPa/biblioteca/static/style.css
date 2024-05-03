@@ -118,3 +118,8 @@ textarea {
 .add-user {
     margin-left: 50%;
 }
+
+
+#id_archivo_csv {
+    color: #ffffff;
+}
