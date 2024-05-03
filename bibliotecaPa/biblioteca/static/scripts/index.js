@@ -43,7 +43,7 @@ $(document).ready(function () {
     // Evento de envío del formulario de búsqueda
     $('#searchForm').submit(function (event) {
         event.preventDefault(); // Evitar el envío del formulario por defecto
-
+        
         var search = $('#searchItems').val(); // Obtener el término de búsqueda
         var disponible = checkboxChecked(); // Obtener el valor del checkbox
         localStorage.setItem('checkboxChecked', disponible);

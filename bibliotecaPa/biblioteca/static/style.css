@@ -1,4 +1,3 @@
-
 #popUp::-webkit-scrollbar {
     display: none;
     /* Ocultar la barra de desplazamiento en navegadores webkit (Chrome, Safari, etc.) */
@@ -57,7 +56,7 @@
 #layout {
     display: grid;
     grid-template-rows: auto auto auto;
-    grid-template-areas:  "header"  "main"  "footer";
+    grid-template-areas: "header" "main" "footer";
 }
 
 header {
@@ -112,7 +111,7 @@ textarea {
     justify-self: right;
 }
 
-#options form button{
+#options form button {
     margin: 0;
 }
 
@@ -126,7 +125,7 @@ textarea {
 }
 
 #searchResults {
-    margin:  15px 10px;
+    margin: 15px 10px;
     column-count: 2;
     /* Define el número de columnas */
     column-gap: 20px;
@@ -160,6 +159,15 @@ textarea {
     /* Ajusta el tamaño de las columnas automáticamente */
     grid-gap: 20px;
     /* Espacio entre las tarjetas de usuario */
+}
+
+.add-user {
+    margin-left: 50%;
+}
+
+
+#id_archivo_csv {
+    color: #ffffff;
 }
 
 #id_imatge {

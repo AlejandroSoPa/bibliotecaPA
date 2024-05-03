@@ -12,9 +12,9 @@ $(document).ready(function () {
                                                             <div class="card-body">
                                                                 <h5 class="card-title">${item.first_name} ${item.last_name}</h5>
                                                                 <p class="card-text">${item.email}</p>
-                                                                <p class="card-text">${item.username}</p>
-                                                                <button id="modifyProfile" value="${item.id}">
-                                                                    <a href="/edit_profile/${item.id}">Canviar dades</a>
+                                                                <p class="card-text">${item.username}</p><br>
+                                                                <button class="card-text" value="${item.id}">
+                                                                    <a href="/edit_profile/${item.id}" class="text-white bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center">Canviar dades</a>
                                                                 </button>
                                                             </div>
                                                         </div>`
