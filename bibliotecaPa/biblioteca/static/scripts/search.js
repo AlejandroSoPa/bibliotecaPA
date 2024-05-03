@@ -1,15 +1,18 @@
 $(document).ready(function () {
-    function getParameterByName(name) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-            results = regex.exec(location.search);
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
 
     // Obtener el valor de 'searchItems' de la URL
-    var search = getParameterByName('searchItems');
+    var search = localStorage.getItem('search') || '';
     // Función para realizar la llamada AJAX y mostrar los resultados
     console.log(localStorage.getItem('checkboxChecked'))
+    console.log(search)
+    $("#resultats").html("Resultats per a la cerca: " + search)
+    if (search == null || search == '') {
+        search = undefined
+        $("#resultats").html("Resultats per a la cerca")
+    }
+    else {
+        $("#resultats").html("Resultats per a la cerca: " + search)
+    }
     function searchItems() {
         $.ajax({
             url: '/api/searchItems/' + search,
@@ -20,26 +23,31 @@ $(document).ready(function () {
                     var checkboxChecked = $('#disponible').prop('checked') || JSON.parse(localStorage.getItem('checkboxChecked'));
                     // Obtener el valor del checkbox "disponible" dentro del bucle
                     console.log(checkboxChecked);
+                    console.log(item);
+
                     // Verificar la disponibilidad del elemento y si debe mostrarse según el estado del checkbox
-                    if (checkboxChecked && item.disponibilidad === true) {
+                    if (checkboxChecked) {
                         // Crear el elemento de la tarjeta y agregarlo a los resultados de búsqueda
-                        var itemElement = $.parseHTML(`<div class="card">
+                        if (item.ejemplares > 0) {
+                            var itemElement = $.parseHTML(`<div class="card">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">${item.titol}</h5>
-                                                    <p class="card-text">${item.descripcio}</p>
-                                                    <p class="card-text">${item.autor}</p>
-                                                    <p class="card-text">${item.ejemplares}</p>
+                                                    <h3 class="card-title">Titol: ${item.titol}</h5>
+                                                    <p class="card-text">Autor: ${item.autor}</p>
+                                                    <p class="card-text">Descripció: ${item.descripcio}</p>
+                                                    <p class="card-text">Exemplars: ${item.ejemplares}</p>
                                                 </div>
                                             </div>`);
-                        $('#searchResults').append(itemElement);
+                            $('#searchResults').append(itemElement);
+                        }
+
                     } else if (!checkboxChecked) {
                         // Si el checkbox "disponible" no está marcado, mostrar todos los elementos
                         var itemElement = $.parseHTML(`<div class="card">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">${item.titol}</h5>
-                                                    <p class="card-text">${item.descripcio}</p>
-                                                    <p class="card-text">${item.autor}</p>
-                                                    <p class="card-text">${item.ejemplares}</p>
+                                                    <h5 class="card-title">Titol: ${item.titol}</h5>
+                                                    <p class="card-text">Autor: ${item.autor}</p>
+                                                    <p class="card-text">Descripció: ${item.descripcio}</p>
+                                                    <p class="card-text">Exemplars: ${item.ejemplares}</p>
                                                 </div>
                                             </div>`);
                         $('#searchResults').append(itemElement);
@@ -59,9 +67,16 @@ $(document).ready(function () {
         // Prevenir el comportamiento predeterminado del evento de submit del formulario
         event.preventDefault();
         localStorage.removeItem('checkboxChecked');
+        localStorage.removeItem('search');
         // Obtener el valor de 'searchItems' del input de búsqueda
         search = $('#searchItems').val();
-
+        if (search == null || search == '') {
+            search = undefined
+            $("#resultats").html("Resultats per a la cerca")
+        }
+        else {
+            $("#resultats").html("Resultats per a la cerca: " + search)
+        }
         // Limpiar los resultados anteriores
         $('#searchResults').empty();
 

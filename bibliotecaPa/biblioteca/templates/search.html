@@ -7,7 +7,7 @@
         {% load static %}
         <link href="{% static 'output.css' %}" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-        <title>Search</title>
+        <title>Cerca de Catàleg</title>
     </head>
 
     <body class="bg-caoba">
@@ -16,20 +16,19 @@
             <div class="text-center flex items-center">
                 <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
                 <!-- Add a margin to the right of the image -->
-                <p id="nameApp"><a href="/">Biblioteca PA</a></p>
+                <p id="nameApp"><a href="/">Biblioteca Mari Carmen Brito</a></p>
             </div>
         </header>
 
         <form id="searchElements" class="mx-decima" action="{% url 'search' %}" style="margin-top: 25px;">
-            <label for="searchItems"
-                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <label for="searchItems" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Cerca de
+                Catàleg</label>
             <div class="relative search-container flex items-center">
                 <div class="ml-2">
                     <label for="disponible" class="ms-2 text-sm font-medium text-textWhite dark:text-gray-300">Article
                         Disponible?</label>
                     <input id="disponible" type="checkbox" value="disponible" name="disponible"
                         class="disponible w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -47,7 +46,7 @@
         </form>
 
 
-        <h1 class="text-5xl text-textWhite items-center flex justify-center" style="margin-top: 25px;">Resultats cerca per a la busqueda: {{ searchItems }}
+        <h1 id="resultats" class="text-5xl text-textWhite items-center flex justify-center" style="margin-top: 25px;">
         </h1><br>
 
         <div id="searchResults" class="searchResults grid-cols-2">

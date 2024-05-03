@@ -10,7 +10,10 @@ def hello(request):
 
 def searchItems(request, itemSearch):
     # Busca los artículos que coincidan con el título o el autor
-    jsonData = list(Article.objects.filter(Q(titol__icontains=itemSearch) | Q(autor__icontains=itemSearch)).values())
+    if itemSearch == "" or itemSearch == "undefined":
+        jsonData = list(Article.objects.all().values())
+    else:
+        jsonData = list(Article.objects.filter(Q(titol__icontains=itemSearch) | Q(autor__icontains=itemSearch)).values())
     return JsonResponse({
             "status": "OK",
             "items": jsonData,

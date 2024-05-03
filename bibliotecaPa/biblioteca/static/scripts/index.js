@@ -44,11 +44,17 @@ $(document).ready(function () {
     $('#searchForm').submit(function (event) {
         event.preventDefault(); // Evitar el envío del formulario por defecto
         
-        var search = $('#searchItems').val(); // Obtener el término de búsqueda
+        var formData = new FormData(this);
+
+        // Itera sobre los datos del formulario
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+            localStorage.setItem('search', pair[1]);
+        }
         var disponible = checkboxChecked(); // Obtener el valor del checkbox
         localStorage.setItem('checkboxChecked', disponible);
         // Redirigir a la página de búsqueda con los parámetros en la URL
-        window.location.href = '/search/?searchItems=' + search;
+        window.location.href = '/search/';
     });
 });
 

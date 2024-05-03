@@ -259,6 +259,7 @@ def import_users(request):
                         email=fila['email'],
                         data_naixement=datetime.strptime(fila['data_naixement'], '%Y-%m-%d').date(),
                         cicle=fila.get('cicle'),  # Si 'cicle' no está presente, devuelve None
+                        telefon=fila.get('telefon'),  # Si 'telefon' no está presente, devuelve None
                         centre=form.cleaned_data['centre'],
                         password=fila['password'],
                         # Puedes manejar la subida de imágenes de manera similar

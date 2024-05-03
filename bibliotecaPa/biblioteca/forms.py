@@ -5,6 +5,7 @@ from django.forms.widgets import DateInput
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
+    
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
