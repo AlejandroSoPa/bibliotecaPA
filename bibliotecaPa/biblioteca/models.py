@@ -6,6 +6,7 @@ class Usuari(AbstractUser):
     data_naixement = models.DateField(null=True)
     centre = models.ForeignKey('Centre', on_delete=models.CASCADE, null=True, blank=True)
     cicle = models.CharField(max_length=100, null=True, blank=True)
+    telefon = models.CharField(max_length=11, null=True, blank=True)
     imatge = models.ImageField(null=True, upload_to='fotos_perfil', default='default.jpg')
     groups = models.ManyToManyField(Group, null=True, related_name='usuari_group')
     user_permissions = models.ManyToManyField(Permission, null=True, related_name='usuarios_permision')

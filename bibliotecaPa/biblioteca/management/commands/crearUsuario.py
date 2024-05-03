@@ -38,6 +38,7 @@ class Command(BaseCommand):
             first_name = fake.first_name()
             last_name = fake.last_name()
             password = "IETI202$"
+            phone = fake.phone_number()[:9]  # Limitar el número de teléfono a 9 caracteres
             data_naixement = fake.date_of_birth(minimum_age=16, maximum_age=40)
             centre = choice(centres)
 
@@ -49,6 +50,7 @@ class Command(BaseCommand):
                 last_name=last_name,
                 password=password,
                 admin=admin,
+                telefon=phone,
                 data_naixement=data_naixement,
                 centre=centre
             )
@@ -67,6 +69,7 @@ class Command(BaseCommand):
             first_name = fake.first_name()
             last_name = fake.last_name()
             password = "IETI202$"
+            phone = fake.phone_number()[:9]  # Limitar el número de teléfono a 9 caracteres
             data_naixement = fake.date_of_birth(minimum_age=18, maximum_age=80)
             centre = choice(centres)
 
@@ -78,6 +81,7 @@ class Command(BaseCommand):
                 last_name=last_name,
                 password=password,
                 admin=admin,
+                telefon=phone,
                 data_naixement=data_naixement,
                 centre=centre
             )
