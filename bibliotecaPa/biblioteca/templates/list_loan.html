@@ -62,6 +62,7 @@
 
         <div>
             <form method="post" action="">
+                {% csrf_token %}
                 {% for field in form %}
                 <p class="mb-4">
                     <label class="block text-textWhite text-sm font-bold mb-2" for="{{ field.id_for_label }}">
@@ -80,7 +81,9 @@
                 {% endfor %}
                 </p>
                 {% endfor %}
+                <button type="submit" class="btn btn-primary">Afegir Prestec</button>
             </form>
+
         </div>
 
 

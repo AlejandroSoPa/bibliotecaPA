@@ -294,11 +294,11 @@ def list_loan(request):
         prestec.retrasado = now > prestec.data_retorn
 
     if request.method == 'POST':
-        form = CustomCreatePrestec(request.POST)
+        form = CustomCreatePrestec(request.POST,user_centre=request.user.centre)
         if form.is_valid():
             form.save()
             return redirect('list_loan')
     else:
-        form = CustomCreatePrestec()
+        form = CustomCreatePrestec(user_centre=request.user.centre)
 
     return render(request, 'list_loan.html', {'prestecs': prestecs, 'form': form})
