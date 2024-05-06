@@ -26,6 +26,9 @@ class Article(models.Model):
     ejemplares = models.IntegerField(default=0)
     disponibilidad = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.titol
+
 class Llibre(Article):
     CDU = models.CharField(max_length=100)
     ISBN = models.CharField(max_length=20)
@@ -74,7 +77,7 @@ class Reserva(models.Model):
 class Prestec(models.Model):
     usuari = models.ForeignKey(Usuari, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    data_préstec = models.DateTimeField(auto_now_add=True)
+    data_préstec = models.DateTimeField()
     data_retorn = models.DateTimeField(null=True, blank=True)
     estat = models.BooleanField(default=False)
 

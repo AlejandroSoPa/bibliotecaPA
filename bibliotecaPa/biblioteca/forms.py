@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
-from .models import Usuari, Centre
+from .models import Usuari, Centre, Prestec
 from django.forms.widgets import DateInput
 
 class PasswordResetForm(forms.Form):
@@ -62,3 +62,16 @@ class CSVUploadForm(forms.Form):
 
         if centro:
             self.fields['centre'].initial = centro
+
+class CustomCreatePrestec(forms.ModelForm):
+    class Meta:
+        model = Prestec
+        fields = ('usuari', 'article', 'data_retorn')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['usuari'].label = 'Usuari'
+        self.fields['article'].label = 'Article'
+        self.fields['data_retorn'].label = 'Data de retorn'
+
+        self.fields['data_retorn'].widget = DateInput(attrs={'type': 'date'})

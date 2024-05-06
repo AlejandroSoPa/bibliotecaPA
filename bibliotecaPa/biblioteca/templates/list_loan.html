@@ -1,64 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link href="{% static 'output.css' %}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <title>Prestec</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9PTHE2BR0"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% load static %}
+        <link href="{% static 'output.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <title>Prestec</title>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9PTHE2BR0"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
 
-        gtag('config', 'G-C9PTHE2BR0');
-    </script>
-</head>
+            gtag('config', 'G-C9PTHE2BR0');
+        </script>
+    </head>
 
-<body class="bg-caoba">
-    <div>
-        <header class="bg-marron py-2 flex justify-center items-center text-textWhite">
-            <div class="text-center flex items-center">
-                <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
-                <p id="nameApp"><a href="/dashboard">Biblioteca Mari Carmen Brito</a></p>
-            </div>
-        </header>
-    </div>
-    <div class="fade-in-text">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Material</th>
-                    <th>Data de Prestec</th>
-                    <th>Data de Devolucio</th>
-                    <th>Estat</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for prestec in prestecs %}
-                <tr>
-                    <td>{{ prestec.article.titol }}</td>
-                    <td class="data_préstec">{{ prestec.data_préstec }}</td>
-                    <td class="data_retorn">{{ prestec.data_retorn }}</td>
-                    <td class="estat">
-                        {% if prestec.retrasado %}
-                        Retrasat
-                        {% elif prestec.estat %}
-                        Retornat
-                        {% else %}
-                        En curs
-                        {% endif %}
-                    </td>
-                    <td class="cambiarEstado"><button id="cambiarEstado">Retornar</button></td>
-                </tr>
+    <body class="bg-caoba">
+        <div>
+            <header class="bg-marron py-2 flex justify-center items-center text-textWhite">
+                <div class="text-center flex items-center">
+                    <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
+                    <p id="nameApp"><a href="/dashboard">Biblioteca Mari Carmen Brito</a></p>
+                </div>
+            </header>
+        </div>
+        <div class="fade-in-text">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Data de Prestec</th>
+                        <th>Data de Devolucio</th>
+                        <th>Estat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prestec in prestecs %}
+                    <tr>
+                        <td>{{ prestec.article.titol }}</td>
+                        <td class="data_préstec">{{ prestec.data_préstec }}</td>
+                        <td class="data_retorn">{{ prestec.data_retorn }}</td>
+                        <td class="estat">
+                            {% if prestec.retrasado %}
+                            Retrasat
+                            {% elif prestec.estat %}
+                            Retornat
+                            {% else %}
+                            En curs
+                            {% endif %}
+                        </td>
+                        <td class="cambiarEstado"><button id="cambiarEstado">Retornar</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <form method="post" action="">
+                {% for field in form %}
+                <p class="mb-4">
+                    <label class="block text-textWhite text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+                    {{ field }}
+                    <br><br>
+                    {% for error in field.errors %}
+                <p class="text-textWhite text-xs italic">
+                    {% if error %}
+                    <script>
+                        createNotification("error", "{{ error }}");
+                    </script>
+                    {% endif %}
+                </p>
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</body>
+                </p>
+                {% endfor %}
+            </form>
+        </div>
+
+
+    </body>
 
 </html>

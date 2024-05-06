@@ -287,10 +287,18 @@ def import_users(request):
     return render(request, 'import_users.html', {'form': form, 'feedback_messages': feedback_messages, **data})
 
 def list_loan(request):
-    prestecs = Prestec.objects.filter(usuari=request.user)
+    prestecs = Prestec.objects.filter(usuari__centre=request.user.centre)
     now = timezone.now()
 
     for prestec in prestecs:
         prestec.retrasado = now > prestec.data_retorn
 
-    return render(request, 'list_loan.html', {'prestecs': prestecs})
+    if request.method == 'POST':
+        form = CustomCreatePrestec(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_loan')
+    else:
+        form = CustomCreatePrestec()
+
+    return render(request, 'list_loan.html', {'prestecs': prestecs, 'form': form})
