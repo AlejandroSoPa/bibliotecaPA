@@ -42,3 +42,4 @@ def editUser(request,id):
     return JsonResponse({
             "status": "OK",
         }, safe=False)
+

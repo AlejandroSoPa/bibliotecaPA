@@ -65,7 +65,7 @@
                             En curs
                             {% endif %}
                         </td>
-                        <td class="cambiarEstado"><button id="cambiarEstado">Retornar</button></td>
+                        <td class="cambiarEstado" id="{{ prestec.id }}"><button id="cambiarEstado">Retornar</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -116,6 +116,8 @@
             $(".fade-in-text").css("filter", "blur(0)"); $("#createLoan").css("filter", "blur(0)");
             $("#crearPrestecForm")[0].reset();
         });
+
+        
 
     </script>
 

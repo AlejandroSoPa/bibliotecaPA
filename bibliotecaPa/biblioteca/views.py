@@ -289,8 +289,11 @@ def import_users(request):
 def list_loan(request):
     prestecs = Prestec.objects.filter(usuari__centre=request.user.centre)
     now = timezone.now()
-
     for prestec in prestecs:
+        print("ID:", prestec.id)
+        print("Título:", prestec.article)
+        print("Data de préstec:", prestec.data_préstec)
+        print("Data de retorn:", prestec.data_retorn)
         prestec.retrasado = now > prestec.data_retorn
 
     if request.method == 'POST':
