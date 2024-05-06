@@ -27,6 +27,13 @@ def getUsers(request,centre):
             "users": jsonData,
         }, safe=False)
 
+def getLoans(request, centre):
+    jsonData = list(Usuari.objects.filter(centre=centre).values())
+    return JsonResponse({
+            "status": "OK",
+            "users": jsonData,
+        }, safe=False)
+
 def editUser(request,id):
     # Edita un usuario
     user = Usuari.objects.get(id=id)

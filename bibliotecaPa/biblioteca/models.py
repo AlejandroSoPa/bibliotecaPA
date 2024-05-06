@@ -76,6 +76,7 @@ class Prestec(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     data_préstec = models.DateTimeField(auto_now_add=True)
     data_retorn = models.DateTimeField(null=True, blank=True)
+    estat = models.BooleanField(default=False)
 
 class Solicitud(models.Model):
     usuari = models.ForeignKey(Usuari, on_delete=models.CASCADE)

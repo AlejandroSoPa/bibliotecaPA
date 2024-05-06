@@ -17,6 +17,7 @@ import random
 import string
 import csv
 from datetime import datetime
+from django.utils import timezone
 
 
 # Create your views here.
@@ -285,3 +286,11 @@ def import_users(request):
     
     return render(request, 'import_users.html', {'form': form, 'feedback_messages': feedback_messages, **data})
 
+def list_loan(request):
+    prestecs = Prestec.objects.filter(usuari=request.user)
+    now = timezone.now()
+
+    for prestec in prestecs:
+        prestec.retrasado = now > prestec.data_retorn
+
+    return render(request, 'list_loan.html', {'prestecs': prestecs})

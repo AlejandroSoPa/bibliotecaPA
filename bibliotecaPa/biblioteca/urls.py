@@ -17,9 +17,10 @@ urlpatterns = [
     path('edit_profile/<int:user_id>/', edit_profile, name='edit_profile'),
     path('search/', search, name='search'),
     path('api/searchItems/<str:itemSearch>', api.searchItems, name='searchItem'),
-    path('usuaris/',manage_users, name='manage_users'),
+    path('usuaris/', manage_users, name='manage_users'),
     path('api/getUsers/<int:centre>', api.getUsers, name='getUsers'),
     path('api/editUser/<int:id>', api.editUser, name='editUser'),
     path('create_user/', create_user, name='create_user'),
     path('import_users/', import_users, name='import_users'),
+    path('list_loan/', list_loan, name='list_loan'),
 ]
