@@ -28,40 +28,40 @@
                 </div>
             </header>
         </div>
-        <div class="searchResults">
-            <h1 class="text-5xl mt-lg text-textWhite items-center flex justify-center">Prestecs</h1><br>
+        <div id="loanResults">
+            <h1 class="loanTitle text-5xl mt-decima text-textWhite ">Prestécs</h1>
             <button id="createLoan" class="mx-2">Solicitar Prestec</button>
-        </div>
-        <div class="fade-in-text">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Material</th>
-                        <th>Data de Prestec</th>
-                        <th>Data de Devolucio</th>
-                        <th>Estat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for prestec in prestecs %}
-                    <tr>
-                        <td>{{ prestec.article.titol }}</td>
-                        <td class="data_préstec">{{ prestec.data_préstec }}</td>
-                        <td class="data_retorn">{{ prestec.data_retorn }}</td>
-                        <td class="estat">
-                            {% if prestec.retrasado %}
-                            Retrasat
-                            {% elif prestec.estat %}
-                            Retornat
-                            {% else %}
-                            En curs
-                            {% endif %}
-                        </td>
-                        <td class="cambiarEstado"><button id="cambiarEstado">Retornar</button></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="fade-in-text loanTable">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Data de Prestec</th>
+                            <th>Data de Devolucio</th>
+                            <th>Estat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prestec in prestecs %}
+                        <tr>
+                            <td>{{ prestec.article.titol }}</td>
+                            <td class="data_préstec">{{ prestec.data_préstec }}</td>
+                            <td class="data_retorn">{{ prestec.data_retorn }}</td>
+                            <td class="estat">
+                                {% if prestec.retrasado %}
+                                Retrasat
+                                {% elif prestec.estat %}
+                                Retornat
+                                {% else %}
+                                En curs
+                                {% endif %}
+                            </td>
+                            <td class="cambiarEstado"><button id="cambiarEstado">Retornar</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div>

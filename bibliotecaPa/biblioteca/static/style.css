@@ -173,3 +173,27 @@ textarea {
 #id_imatge {
     color: #ffffff;
 }
+
+#loanResults {
+    display: flex;
+    flex-direction: column;
+}
+
+.loanTitle {
+    margin: 20px 5px;
+    text-align: center;
+    color: #ffffff;
+}
+
+#createLoan {
+    text-align: start;
+    margin-left: 50px;
+}
+
+.loanTable {
+    margin: 0 5px;
+    background-color: #6c4f47;
+    max-width: 3000px;
+    min-width: 1000px;
+    margin: auto;
+}
