@@ -19,6 +19,7 @@ class CustomUserChangeForm(UserChangeForm):
 
         self.fields['first_name'].label = 'Nom'
         self.fields['last_name'].label = 'Cognoms'
+        self.fields["imatge"].label = "Imatge de perfil"
 
 class CustomCreateUserForm(forms.ModelForm):
     class Meta:
