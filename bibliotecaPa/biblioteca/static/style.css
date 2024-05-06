@@ -197,3 +197,23 @@ textarea {
     min-width: 1000px;
     margin: auto;
 }
+
+#crearPrestecForm {
+    z-index: 100;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    background-color: #6c4f47;
+    padding: 20px;
+}
+
+#closeLoanForm {
+    margin-top: 10px;
+    background-color: red;
+}

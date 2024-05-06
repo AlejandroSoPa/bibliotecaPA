@@ -7,6 +7,12 @@
         {% load static %}
         <link href="{% static 'output.css' %}" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link rel="stylesheet"
+            href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <title>Prestec</title>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-C9PTHE2BR0"></script>
@@ -30,7 +36,9 @@
         </div>
         <div id="loanResults">
             <h1 class="loanTitle text-5xl mt-decima text-textWhite ">Prestécs</h1>
-            <button id="createLoan" class="mx-2">Solicitar Prestec</button>
+            <button id="createLoan"
+                class="mx-2 text-textWhite bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center">Solicitar
+                Prestec</button>
             <div class="fade-in-text loanTable">
                 <table class="table">
                     <thead>
@@ -65,10 +73,12 @@
         </div>
 
         <div>
-            <form method="post" action="">
+            <form method="post" action="" id="crearPrestecForm" class="">
+                {% csrf_token %}
                 {% for field in form %}
                 <p class="mb-4">
-                    <label class="block text-textWhite text-sm font-bold mb-2" for="{{ field.id_for_label }}">
+                    <label class="block text-textWhite text-sm font-bold mb-2 text-center"
+                        for="{{ field.id_for_label }}">
                         {{ field.label }}
                     </label>
                     {{ field }}
@@ -84,10 +94,29 @@
                 {% endfor %}
                 </p>
                 {% endfor %}
+                <button type="submit"
+                    class="text-textWhite bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center">Afegir
+                    Prestec</button>
+                <button id="closeLoanForm"
+                    class="text-textWhite focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center">Tancar</button>
             </form>
+
         </div>
 
 
     </body>
+    <script>
+        $("#createLoan").click(function () {
+            $(".fade-in-text").css("filter", "blur(5px)"); $("#createLoan").css("filter", "blur(5px)");
+            $("#crearPrestecForm").css("display", "flex");
+        });
+
+        $("#closeLoanForm").click(function () {
+            $("#crearPrestecForm").css("display", "none");
+            $(".fade-in-text").css("filter", "blur(0)"); $("#createLoan").css("filter", "blur(0)");
+            $("#crearPrestecForm")[0].reset();
+        });
+
+    </script>
 
 </html>
