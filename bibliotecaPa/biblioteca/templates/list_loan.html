@@ -26,19 +26,17 @@
     </head>
 
     <body class="bg-caoba">
-        <div>
-            <header class="bg-marron py-2 flex justify-center items-center text-textWhite">
-                <div class="text-center flex items-center">
-                    <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
-                    <p id="nameApp"><a href="/dashboard">Biblioteca Mari Carmen Brito</a></p>
-                </div>
-            </header>
-        </div>
+        <header class="bg-marron py-2 flex justify-center items-center text-textWhite">
+            <div class="text-center flex items-center">
+                <img src="{% static '/img/library.png' %}" alt="library" width="30px" class="mr-2">
+                <p id="nameApp"><a href="/dashboard">Biblioteca Mari Carmen Brito</a></p>
+            </div>
+        </header>
+
         <div id="loanResults">
             <h1 class="loanTitle text-5xl mt-decima text-textWhite ">Prestécs</h1>
-            <button id="createLoan"
-                class="mx-2 text-textWhite bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center">Solicitar
-                Prestec</button>
+            <button id="createLoan" class="mx-2 text-textWhite bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center">Solicitar
+            Prestec</button>
             <div class="fade-in-text loanTable">
                 <table class="table">
                     <thead>
@@ -47,6 +45,7 @@
                             <th>Data de Prestec</th>
                             <th>Data de Devolucio</th>
                             <th>Estat</th>
+                            <th>Retornar Llibre</th>
                         </tr>
                     </thead>
                     <tbody>
