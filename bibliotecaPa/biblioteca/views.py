@@ -249,7 +249,7 @@ def import_users(request):
                     if Usuari.objects.filter(email=email).exists():  # Usar el manager de Usuari
                         data["warning"] = True 
                         data["warningMsg"] = f"El correo {email} ya existe en la base de datos."
-                        feedback_messages.append(f"Línea {line_number}: El correo {email} ya existe en la base de datos.".rstrip())
+                        feedback_messages.append(f"Línia {line_number}: L'email {email} existeix a la base de dades.".rstrip())
                         continue  # Saltar a la siguiente fila del CSV
 
                     # Si el correo no existe, crear el nuevo usuario
@@ -270,11 +270,11 @@ def import_users(request):
                     # Añade lógica adicional para manejar los campos relacionales si es necesario
                     data["info"] = True
                     data["infoMsg"] = "Usuarios importados correctamente."
-                    feedback_messages.append(f"Línea {line_number}: Usuario importado correctamente.".rstrip())
+                    feedback_messages.append(f"Línia {line_number}: Usuari importat correctament.".rstrip())
                 except Exception as e:
                     data["error"] = True
-                    data["errorMsg"] = f"Error en la línea {line_number}: {str(e)}"
-                    feedback_messages.append(f"Línea {line_number}: Error - {str(e)}".rstrip())
+                    data["errorMsg"] = f"Error en la línia {line_number}: {str(e)}"
+                    feedback_messages.append(f"Línia {line_number}: Error - {str(e)}".rstrip())
 
     else:
         # Verificar si el usuario está autenticado

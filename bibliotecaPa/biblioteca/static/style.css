@@ -232,3 +232,34 @@ tr:nth-child(even) {
     margin-top: 10px;
     background-color: red;
 }
+
+.list_messages {
+    margin-top: 50px;
+    color: #ffffff;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+}
+
+.titleResultImport {
+    font-size: 30px;
+    margin: 10px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.fade-in-text_import {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.list_messages { /* Ajusta el color de fondo según tus necesidades */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega sombra según tus necesidades */
+    margin-top: 20px; /* Ajusta el margen superior según tus necesidades */
+}

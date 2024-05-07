@@ -35,7 +35,7 @@
                 <p id="nameApp"><a href="/dashboard">Biblioteca Mari Carmen Brito</a></p>
             </div>
         </header>
-        <div class="fade-in-text">
+        <div class="fade-in-text_import ">
             <h1 class="text-5xl mt-lg text-textWhite items-center flex justify-center">Crear usuari</h1><br>
             <div class="flex justify-center w-full items-center text-textWhite">
                 <form method="post" enctype="multipart/form-data"
@@ -48,18 +48,19 @@
                 </form>
                 <br>
             </div>
-            <div class="flex justify-center w-full items-center">
-                <textarea name="feedback" id="" cols="70" rows="10" readonly>
+            
+            <div class="list_messages bg-marron rounded-lg px-8 pt-6 pb-8 mb-4 ">
+                <div>
+                    <h2 class="titleResultImport">Resultat de la importació</h2>
                     {% for message in feedback_messages %}
-                        {{ message }}
+                        <p>{{ message }}</p>
                         {% if not forloop.last %}
                             
                         {% endif %}
                     {% endfor %}
-                </textarea>
+                </div>
             </div>
-
-
+        </div>
     </body>
 
 </html>
