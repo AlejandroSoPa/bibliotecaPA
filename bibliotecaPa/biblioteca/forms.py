@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
-from .models import Usuari, Centre, Prestec
+from .models import Usuari, Centre, Prestec, Article
 from django.forms.widgets import DateInput
+from django.utils import timezone
+from datetime import timedelta
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
@@ -76,9 +78,15 @@ class CustomCreatePrestec(forms.ModelForm):
         self.fields['data_préstec'].label = 'Data de préstec'
         self.fields['data_retorn'].label = 'Data de retorn'
 
-        self.fields['data_préstec'].widget = forms.DateInput(attrs={'type': 'date'})
-        self.fields['data_retorn'].widget = forms.DateInput(attrs={'type': 'date'})
+        min_date = timezone.now() + timedelta(days=7)
+
+        self.fields['data_préstec'].widget = forms.DateInput(attrs={'type': 'date', 'min': timezone.now().strftime('%Y-%m-%d')})
+        self.fields['data_retorn'].widget = forms.DateInput(attrs={'type': 'date', 'min': min_date.strftime('%Y-%m-%d')})
 
         # Filter users based on the user's centre
         if user_centre:
             self.fields['usuari'].queryset = Usuari.objects.filter(centre=user_centre)
+
+                # Filter articles based on availability
+        available_articles = Article.objects.filter(ejemplares__gt=0)
+        self.fields['article'].queryset = available_articles

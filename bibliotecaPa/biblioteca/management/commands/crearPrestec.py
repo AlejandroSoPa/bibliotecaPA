@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from biblioteca.models import Prestec, Usuari, Article
 from datetime import datetime, timedelta
 from django.utils import timezone
+import random 
 
 class Command(BaseCommand):
     help = 'Seed the database with dummy data for Prestec model'
@@ -30,7 +31,7 @@ class Command(BaseCommand):
             
             # Calcular la fecha de préstamo sumando 2 horas
             data_prestec = data + timedelta(hours=2)
-
+            data_lliurament = data_prestec + timedelta(days=random.randint(1, 40))
             # Calcular la fecha de retorno (fecha de préstamo + 30 días)
             data_retorn = data_prestec + timedelta(days=30)
 
@@ -39,6 +40,7 @@ class Command(BaseCommand):
                 usuari=usuario,
                 article=articulo,
                 data_préstec=data_prestec,
+                data_lliurament=data_lliurament,
                 data_retorn=data_retorn
             )
 

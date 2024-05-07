@@ -1,3 +1,7 @@
+body {
+    color: #ffffff;
+}
+
 #popUp::-webkit-scrollbar {
     display: none;
     /* Ocultar la barra de desplazamiento en navegadores webkit (Chrome, Safari, etc.) */
@@ -193,9 +197,8 @@ textarea {
 }
 
 .loanTable {
-    margin: 0 5px;
     background-color: #6c4f47;
-    margin: auto;
+    margin: 40px auto;
 }
 
 table {
@@ -203,13 +206,14 @@ table {
     border-collapse: collapse;
 }
 
-td, th {
+td,
+th {
     border: 1px solid #dddddd;
     padding: 8px;
     text-align: left;
 }
 
-tr:nth-child(even) {
+tbody tr:nth-child(odd) {
     background-color: #8b4513;
 }
 
@@ -231,4 +235,17 @@ tr:nth-child(even) {
 #closeLoanForm {
     margin-top: 10px;
     background-color: red;
+}
+
+/* Estilos para botones deshabilitados */
+button:disabled {
+    /* Cambia el color de fondo y el color del texto */
+    background-color: #cccccc;
+    /* Color de fondo gris */
+    color: #999999;
+    /* Color del texto gris claro */
+    /* Otros estilos opcionales */
+    cursor: not-allowed;
+    /* Cambia el cursor a 'no permitido' */
+    /* Puedes agregar otros estilos según tus necesidades */
 }

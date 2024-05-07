@@ -68,7 +68,7 @@ def import_users(request):
     return render(request, 'import_users.html')
 
 def dashboard(request):
-    print(request.user)
+    #print(request.user)
     if not request.user.is_authenticated:
         generarLog(request, 'ERROR', f"Ha fallado la redirección a la página de dashboard", ruta='/dashboard', usuario=None)
         subir_logs_a_bd(request)
@@ -290,18 +290,19 @@ def list_loan(request):
     prestecs = Prestec.objects.filter(usuari__centre=request.user.centre)
     now = timezone.now()
     for prestec in prestecs:
-        print("ID:", prestec.id)
-        print("Título:", prestec.article)
-        print("Data de préstec:", prestec.data_préstec)
-        print("Data de retorn:", prestec.data_retorn)
-        prestec.retrasado = now > prestec.data_retorn
-
+        prestec.retrasado = prestec.data_lliurament is None and  now > prestec.data_retorn
+        prestec.lliurament_retrasat = prestec.data_lliurament is not None and prestec.data_lliurament > prestec.data_retorn
     if request.method == 'POST':
         form = CustomCreatePrestec(request.POST,user_centre=request.user.centre)
+        article = Article.objects.get(pk=request.POST.get('article'))
+        print(article.ejemplares)
         if form.is_valid():
+            article.ejemplares -= 1
+            article.save()
+            print(article.ejemplares)
             form.save()
             return redirect('list_loan')
     else:
         form = CustomCreatePrestec(user_centre=request.user.centre)
-
     return render(request, 'list_loan.html', {'prestecs': prestecs, 'form': form})
+
