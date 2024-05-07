@@ -3,8 +3,7 @@ $(document).ready(function () {
     // Obtener el valor de 'searchItems' de la URL
     var search = localStorage.getItem('search') || '';
     // Función para realizar la llamada AJAX y mostrar los resultados
-    console.log(localStorage.getItem('checkboxChecked'))
-    console.log(search)
+
     $("#resultats").html("Resultats per a la cerca: " + search)
     if (search == null || search == '') {
         search = undefined

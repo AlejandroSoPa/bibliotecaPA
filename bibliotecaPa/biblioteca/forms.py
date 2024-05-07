@@ -68,25 +68,26 @@ class CSVUploadForm(forms.Form):
 class CustomCreatePrestec(forms.ModelForm):
     class Meta:
         model = Prestec
-        fields = ('usuari', 'article', 'data_préstec','data_retorn')
-    def __init__(self,  *args, **kwargs):
+        fields = ('usuari', 'article', 'data_préstec', 'data_retorn')
+        
+    def __init__(self, *args, **kwargs):
         user_centre = kwargs.pop('user_centre', None)
-        print(user_centre)
         super().__init__(*args, **kwargs)
+        
+        # Asignar etiquetas personalizadas
         self.fields['usuari'].label = 'Usuari'
         self.fields['article'].label = 'Article'
         self.fields['data_préstec'].label = 'Data de préstec'
         self.fields['data_retorn'].label = 'Data de retorn'
 
-        min_date = timezone.now() + timedelta(days=7)
-
+        # Configurar los widgets de fecha con la fecha mínima calculada
         self.fields['data_préstec'].widget = forms.DateInput(attrs={'type': 'date', 'min': timezone.now().strftime('%Y-%m-%d')})
-        self.fields['data_retorn'].widget = forms.DateInput(attrs={'type': 'date', 'min': min_date.strftime('%Y-%m-%d')})
+        self.fields['data_retorn'].widget = forms.DateInput(attrs={'type': 'date'})
 
-        # Filter users based on the user's centre
+        # Filtrar usuarios basados en el centro del usuario
         if user_centre:
             self.fields['usuari'].queryset = Usuari.objects.filter(centre=user_centre)
 
-                # Filter articles based on availability
+        # Filtrar artículos basados en la disponibilidad
         available_articles = Article.objects.filter(ejemplares__gt=0)
         self.fields['article'].queryset = available_articles

@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import environ
 import os
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from pathlib import Path
 
 env = environ.Env(
