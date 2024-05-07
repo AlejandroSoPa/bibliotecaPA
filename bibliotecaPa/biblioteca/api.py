@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from .models import *
 from django.db.models import Q
+from django.utils import timezone
 
 def hello(request):
     return JsonResponse({
@@ -39,6 +40,17 @@ def editUser(request,id):
     user = Usuari.objects.get(id=id)
     user.admin = not user.admin
     user.save()
+    return JsonResponse({
+            "status": "OK",
+        }, safe=False)
+
+def returnLoan(request, id):
+    # Devuelve un préstamo
+    loan = Prestec.objects.get(id=id)
+    loan.data_lliurament = timezone.now()
+    loan.article.ejemplares += 1
+    loan.save()
+    loan.article.save()
     return JsonResponse({
             "status": "OK",
         }, safe=False)

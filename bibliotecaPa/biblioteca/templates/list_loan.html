@@ -35,15 +35,18 @@
 
         <div id="loanResults">
             <h1 class="loanTitle text-5xl mt-decima text-textWhite ">Prestécs</h1>
-            <button id="createLoan" class="mx-2 text-textWhite bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center">Solicitar
-            Prestec</button>
+            <button id="createLoan"
+                class="mx-2 text-textWhite bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center ">Solicitar
+                Prestec</button>
             <div class="fade-in-text loanTable">
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Usuari</th>
                             <th>Material</th>
                             <th>Data de Prestec</th>
                             <th>Data de Devolucio</th>
+                            <th>Data de Lliurament</th>
                             <th>Estat</th>
                             <th>Retornar Llibre</th>
                         </tr>
@@ -51,19 +54,40 @@
                     <tbody>
                         {% for prestec in prestecs %}
                         <tr>
+                            <td class="usuari">{{ prestec.usuari }}</td>
                             <td>{{ prestec.article.titol }}</td>
                             <td class="data_préstec">{{ prestec.data_préstec }}</td>
                             <td class="data_retorn">{{ prestec.data_retorn }}</td>
+                            <td class="data_lliurament">
+                                {% if not prestec.data_lliurament %}
+                                No lliurat
+                                {% else %}
+                                {{ prestec.data_lliurament }}
+                                {% endif %}
+                            </td>
                             <td class="estat">
                                 {% if prestec.retrasado %}
                                 Retrasat
-                                {% elif prestec.estat %}
+                                {% elif prestec.lliurament_retrasat %}
+                                Lliurament Retrasat
+                                {% elif prestec.data_lliurament %}
                                 Retornat
                                 {% else %}
                                 En curs
                                 {% endif %}
                             </td>
-                            <td class="cambiarEstado"><button id="cambiarEstado">Retornar</button></td>
+                            <td class="cambiarEstado">
+                                {% if prestec.data_lliurament %}
+                                <button id="cambiarEstado" disabled
+                                    class=" cambiarEstado mx-2 text-textWhite bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center"
+                                    value="{{ prestec.id }}">Retornar</button>
+                                {% else %}
+                                <button id="cambiarEstado"
+                                    class="cambiarEstado mx-2 text-textWhite bg-verde focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center"
+                                    value="{{ prestec.id }}">Retornar</button>
+                                {% endif %}
+                            </td>
+
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -114,6 +138,18 @@
             $("#crearPrestecForm").css("display", "none");
             $(".fade-in-text").css("filter", "blur(0)"); $("#createLoan").css("filter", "blur(0)");
             $("#crearPrestecForm")[0].reset();
+        });
+
+        $(".cambiarEstado").click(function () {
+            var id = $(this).val();
+            console.log(id);
+            $.ajax({
+                url: "/api/returnLoan/" + id,
+                type: "GET",
+                success: function (data) {
+                    location.reload();
+                }
+            });
         });
 
     </script>

@@ -23,4 +23,5 @@ urlpatterns = [
     path('create_user/', create_user, name='create_user'),
     path('import_users/', import_users, name='import_users'),
     path('list_loan/', list_loan, name='list_loan'),
+    path('api/returnLoan/<int:id>/', api.returnLoan, name='returnLoan'),
 ]
